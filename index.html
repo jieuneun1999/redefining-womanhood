@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redefining Womanhood</title>
+    <!-- Google Fonts: Glacial Indifference -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      :root {
+        --primary: #ff5a87;
+        --secondary: #ff8bb1;
+        --font-title: "Montserrat", sans-serif;
+        --font-glacial: "Glacial Indifference", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-title);
+        color: white;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+
+      body.loaded {
+        opacity: 1;
+      }
+
+      /* Background + Gradient */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background-image:
+          linear-gradient(
+            rgba(255, 90, 135, 0.25),
+            rgba(255, 139, 177, 0.25),
+            rgba(255, 211, 220, 0.2)
+          ),
+          url("image/woman.jpg");
+        background-size:
+          400% 400%,
+          cover;
+        background-position:
+          50% 50%,
+          center;
+        background-repeat: no-repeat;
+        filter: blur(3px) saturate(0.55) brightness(1.05);
+        opacity: 1;
+        animation: gradientBG 15s ease infinite;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position:
+            0% 50%,
+            center;
+        }
+        50% {
+          background-position:
+            100% 50%,
+            center;
+        }
+        100% {
+          background-position:
+            0% 50%,
+            center;
+        }
+      }
+
+      /* NAVBAR */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 10%;
+        font-weight: 900;
+        font-size: 1.8rem;
+        position: sticky;
+        top: 0;
+        background: none;
+        backdrop-filter: blur(6px);
+        z-index: 10;
+      }
+
+      .logo {
+        cursor: pointer;
+        color: white;
+        font-family: var(--font-glacial);
+        text-align: center;
+        line-height: 1.2;
+      }
+      .logo .redefining {
+        display: block;
+        font-size: 1.8rem;
+        position: relative;
+        left: 0.58em; /* aligned over O → N of Womanhood */
+      }
+      .logo .womanhood {
+        display: block;
+        font-size: 3.2rem;
+        position: relative;
+      }
+
+      .nav-links li {
+        display: inline-block;
+        margin-left: 25px;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      /* HERO CONTENT */
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        margin: 100px auto;
+        text-align: center;
+        opacity: 0;
+        animation: fadeInContent 1.5s forwards;
+      }
+
+      .hero-content h1 {
+        font-family: var(--font-glacial);
+        font-style: italic;
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+        text-shadow:
+          0 0 6px rgba(255, 90, 135, 0.3),
+          0 0 12px rgba(255, 139, 177, 0.25),
+          0 0 20px rgba(255, 211, 220, 0.2);
+        animation: glowText 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes glowText {
+        0%,
+        100% {
+          text-shadow:
+            0 0 4px rgba(255, 90, 135, 0.25),
+            0 0 10px rgba(255, 139, 177, 0.2),
+            0 0 16px rgba(255, 211, 220, 0.15);
+        }
+        50% {
+          text-shadow:
+            0 0 6px rgba(255, 90, 135, 0.3),
+            0 0 12px rgba(255, 139, 177, 0.25),
+            0 0 20px rgba(255, 211, 220, 0.2);
+        }
+      }
+
+      .choice-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .choice-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Bigger images */
+      .choice-card img {
+        width: 300px;
+        height: 300px;
+        border-radius: 12px;
+        object-fit: cover;
+        margin-bottom: 25px;
+        transition: transform 0.5s ease;
+      }
+
+      .choice-card img:hover {
+        transform: scale(1.07);
+      }
+
+      /* TEACHER/STUDENT BUTTON - smooth white border only */
+      .choice-card button {
+        margin-top: 15px;
+        padding: 18px 50px;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        background: transparent;
+        color: white;
+        font-family: var(--font-glacial);
+        font-weight: 900;
+        font-size: 2rem;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+        transition:
+          transform 0.3s ease-in-out,
+          border 0.4s ease;
+      }
+
+      /* Pseudo-element for smooth border */
+      .choice-card button::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border: 2px solid white;
+        border-radius: 12px;
+        opacity: 0;
+        transform: scale(0.85);
+        background: transparent;
+        pointer-events: none;
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+      }
+
+      .choice-card button:hover::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .choice-card button:hover {
+        transform: scale(1.05);
+        background: transparent;
+      }
+
+      /* OR text between images */
+      .or-text {
+        font-family: var(--font-glacial);
+        font-weight: bold;
+        color: white;
+        font-size: 2rem;
+        align-self: center;
+        white-space: nowrap;
+        margin: 0 20px;
+      }
+
+      /* RESPONSIVE UPDATES */
+      @media (max-width: 768px) {
+        .choice-card img {
+          width: 240px;
+          height: 240px;
+        }
+        .choice-card button {
+          font-size: 1.8rem;
+          padding: 16px 40px;
+        }
+        .logo .womanhood {
+          font-size: 2.5rem;
+        }
+        .logo .redefining {
+          left: 0.5em;
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .navbar {
+          flex-direction: column;
+          padding: 15px 5%;
+        }
+        .logo .womanhood {
+          font-size: 2.2rem;
+        }
+        .logo .redefining {
+          font-size: 1.4rem;
+          left: 0.45em;
+        }
+        .choice-container {
+          flex-direction: column;
+          gap: 20px;
+        }
+        .or-text {
+          margin: 10px 0;
+        }
+        .choice-card img {
+          width: 200px;
+          height: 200px;
+        }
+        .choice-card button {
+          font-size: 1.6rem;
+          padding: 14px 35px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo" onclick="navigateTo('index.html')">
+        <span class="redefining">Redefining</span>
+        <span class="womanhood">Womanhood</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="animate-text">Are you...</h1>
+        <div class="choice-container">
+          <div class="choice-card teacher">
+            <img src="image/teacher.jpg" alt="Teacher" />
+            <button data-role="teacher">A TEACHER?</button>
+          </div>
+
+          <span class="or-text">or</span>
+
+          <div class="choice-card student">
+            <img src="image/student.jpg" alt="Student" />
+            <button data-role="student">A STUDENT?</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+
+        const content = document.querySelector(".hero-content");
+        content.style.opacity = 0;
+        setTimeout(() => {
+          content.style.transition = "opacity 1.5s ease-in-out";
+          content.style.opacity = 1;
+        }, 200);
+
+        const imgs = document.querySelectorAll(".choice-card img");
+        imgs.forEach((img, index) => {
+          img.style.opacity = 0;
+          setTimeout(
+            () => {
+              img.style.transition = "opacity 1s ease-in-out";
+              img.style.opacity = 1;
+            },
+            500 + index * 200,
+          );
+        });
+
+        const buttons = document.querySelectorAll(".choice-card button");
+        buttons.forEach((btn, index) => {
+          btn.style.opacity = 0;
+          setTimeout(
+            () => {
+              btn.style.transition = "opacity 1s ease-in-out";
+              btn.style.opacity = 1;
+            },
+            700 + index * 200,
+          );
+        });
+      });
+
+      function navigateTo(url) {
+        document.body.style.transition = "opacity 1s ease-in-out";
+        document.body.style.opacity = 0;
+        setTimeout(() => {
+          window.location.href = url;
+        }, 1000);
+      }
+
+      const roleButtons = document.querySelectorAll(".choice-card button");
+      roleButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const role = btn.dataset.role;
+          localStorage.setItem("userRole", role);
+          navigateTo("area.html");
+        });
+      });
+    </script>
+  </body>
+</html>

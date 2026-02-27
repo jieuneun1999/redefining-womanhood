@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Politics</title>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700;900&family=Libre+Baskerville:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      :root {
+        --primary: #ff5a87;
+        --secondary: #ff8bb1;
+        --font-glacial: "Glacial Indifference", sans-serif;
+        --font-title: "Libre Baskerville", serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-glacial);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+        color: black;
+      }
+
+      /* Background image wrapper for fade */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -3;
+        background-image: url("image/work.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        opacity: 0;
+        transition: opacity 1.2s ease-in-out;
+      }
+
+      body.bg-fade-in::after {
+        opacity: 1;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background: linear-gradient(-45deg, #ffe3e8, #ff8bb1, #ff5a87, #ffe3e8);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        opacity: 0.45;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Fade-in/out page */
+      .page-content {
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+      }
+      .page-content.fade-in {
+        opacity: 1;
+      }
+      .page-content.fade-out {
+        opacity: 0;
+      }
+
+      /* ===== NAVBAR ===== */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 10%;
+        font-weight: 900;
+        font-size: 1.8rem;
+        position: sticky;
+        top: 0;
+        background: none;
+        backdrop-filter: blur(6px);
+        z-index: 10;
+      }
+
+      .logo {
+        cursor: pointer;
+        font-family: "Glacial Indifference", sans-serif !important;
+        color: white;
+        text-align: left;
+        line-height: 1.2;
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease;
+        font-weight: bold !important;
+      }
+      .logo .redefining {
+        display: block;
+        font-size: 1.6rem;
+        position: relative;
+        left: 0.58em;
+      }
+      .logo .womanhood {
+        display: block;
+        font-size: 2.8rem;
+        position: relative;
+      }
+      .logo:hover {
+        color: var(--primary);
+        transform: scale(1.05);
+      }
+
+      .nav-links {
+        list-style: none;
+      }
+      .nav-links li {
+        display: inline-block;
+        margin-left: 25px;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      /* ===== CONTENT ===== */
+      .content-container {
+        max-width: 1200px;
+        margin: 60px auto 100px;
+        padding: 0 20px;
+        line-height: 1.85;
+        text-align: center;
+      }
+
+      h1.gradient-text {
+        font-family: var(--font-title);
+        background: linear-gradient(90deg, #ff11c3, #ff7acc, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 4rem;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.15);
+        margin-bottom: 25px;
+      }
+
+      .gradient-text {
+        font-family: var(--font-title);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 1px black;
+        font-size: 4rem;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+      }
+
+      p {
+        font-family: var(--font-glacial);
+        font-size: 1.3rem;
+        margin-bottom: 28px;
+        text-align: justify;
+        color: black;
+      }
+
+      /* ===== UPDATED BUTTON STYLE LIKE AREA PAGE ===== */
+      .gradient-button {
+        display: inline-block;
+        margin: 20px 10px 0;
+        padding: 14px 26px;
+        font-family: var(--font-glacial);
+        font-weight: 700;
+        font-size: 1.45rem;
+        border-radius: 8px;
+        text-decoration: none;
+        letter-spacing: 1px;
+        cursor: pointer;
+        color: white;
+        background: transparent;
+        border: 2px solid transparent;
+        transition:
+          transform 0.25s ease,
+          border 0.3s ease,
+          background 0.4s ease,
+          -webkit-background-clip 0.4s ease,
+          -webkit-text-fill-color 0.4s ease,
+          -webkit-text-stroke-color 0.4s ease,
+          opacity 0.6s ease-in-out;
+      }
+      .gradient-button:hover {
+        transform: scale(1.05);
+        border-color: rgb(241, 135, 201);
+        background: linear-gradient(90deg, #ff11c3, #ff7acc, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-text-stroke: 1px black;
+      }
+
+      /* ===== Responsive ===== */
+      @media (max-width: 992px) {
+        .gradient-button {
+          font-size: 1.35rem;
+          padding: 13px 24px;
+        }
+      }
+      @media (max-width: 600px) {
+        .gradient-button {
+          font-size: 1.25rem;
+          padding: 12px 22px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-content">
+      <nav class="navbar">
+        <div class="logo" onclick="window.location.href = 'area.html'">
+          <span class="redefining">Redefining</span>
+          <span class="womanhood">Womanhood</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+
+      <div class="content-container">
+        <h1 class="gradient-text">WORK</h1>
+        <p>
+          In the past, women were mostly expected to stay at home and take care
+          of their families. Their work focused on raising children, cooking,
+          and cleaning, and even if they contributed economically, it was often
+          unpaid and not formally recognized. Today, this has changed a lot. In
+          the Philippines, there are now over 21 million economically active
+          women working in fields like education, healthcare, business, and
+          technology (Baguio Herald Express Online, 2024). This data supports
+          the idea that women now have greater access to jobs and career
+          opportunities compared to before. However, even with this progress,
+          women still experience challenges such as gender stereotypes and the
+          heavy responsibility of unpaid care work at home.
+        </p>
+        <p>
+          Under the leadership of Mayor Joy Belmonte, Quezon City has
+          institutionalized a strong focus on women’s empowerment by
+          implementing a cohesive strategy centered on economic independence and
+          entrepreneurship. Specifically this vision is realized through the
+          Academy for Women Entrepreneurs (AWE), which started in 2023 to give
+          women the training they need to grow their businesses. In addition to
+          this training, the "Tindahan ni Ate Joy" program helps mothers, solo
+          parents, PWDs and survivors of abuse to start their own small stores
+          by giving them starter kits. To further support local talent, the POP
+          QC-Kolab program connects women who make local goods with professional
+          designers to help them sell more products. Through the efforts of the
+          QC Public Employment Service Office, the city government has provided
+          more than 31,000 jobs to women that allows them to earn for their
+          family’s needs.
+        </p>
+        <p>
+          However, while the Philippines is making great progress, women around
+          the world still face many problems at work. For example, a recent
+          2025/2026 report by McKinsey & Company shows that men are still
+          promoted to manager positions much faster than women. This broken rung
+          on the career ladder means that for every 100 men promoted, only 93
+          women move up, leaving very few women in top leadership roles. Along
+          with promotion gaps, a 2025 study in the Future Business Journal found
+          that many women still struggle to balance their jobs with their
+          responsibilities at home. In the end, these global challenges show why
+          the programs that promote gender equality are so important as they
+          provide the extra support women need to overcome these barriers and
+          reach their full potential.
+        </p>
+
+        <a href="area.html" class="gradient-button">Back to Other Areas</a>
+        <a href="video.html" class="gradient-button"
+          >CLICK TO WATCH THE VIDEO</a
+        >
+        <a href="workreference.html" class="gradient-button">References</a>
+      </div>
+    </div>
+
+    <script>
+      const pageContent = document.querySelector(".page-content");
+
+      window.addEventListener("load", () => {
+        setTimeout(() => pageContent.classList.add("fade-in"), 50);
+        document.body.classList.add("bg-fade-in");
+      });
+
+      document.querySelectorAll(".gradient-button").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const href = link.getAttribute("href");
+          if (!href || href.startsWith("#")) return;
+          e.preventDefault();
+          pageContent.classList.remove("fade-in");
+          pageContent.classList.add("fade-out");
+          document.body.classList.remove("bg-fade-in");
+          setTimeout(() => {
+            window.location.href = href;
+          }, 800);
+        });
+      });
+    </script>
+  </body>
+</html>
