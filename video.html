@@ -17,6 +17,9 @@
         --secondary: #ff8bb1;
         --font-glacial: "Glacial Indifference", sans-serif;
         --font-title: "Libre Baskerville", serif;
+        --pagination-bg: rgba(255, 90, 135, 0.15);
+        --pagination-hover: rgba(255, 139, 177, 0.25);
+        --pagination-color: #fff;
       }
 
       * {
@@ -24,7 +27,6 @@
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
         font-family: var(--font-glacial);
         min-height: 100vh;
@@ -33,7 +35,6 @@
         color: black;
       }
 
-      /* Background wrapper for fade */
       body::after {
         content: "";
         position: fixed;
@@ -289,31 +290,72 @@
         text-align: right;
       }
 
-      /* ===== CENTERED POPUP ===== */
+      /* ===== GLASS POPUP ===== */
       .popup-notification {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) translateY(-20px);
-        background: linear-gradient(90deg, #ff11c3, #ff7acc, #ffffff);
-        color: black;
-        padding: 18px 30px;
+        background: rgba(245, 245, 245, 0.85);
+        backdrop-filter: blur(12px);
+        color: #333;
+        padding: 20px 28px;
         border-radius: 14px;
-        font-weight: 700;
+        font-weight: 600;
         font-family: var(--font-glacial);
         font-size: 1rem;
         opacity: 0;
         pointer-events: none;
         z-index: 9999;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         transition:
           opacity 0.5s ease,
-          transform 0.5s ease;
+          transform 0.5s ease,
+          box-shadow 0.3s ease;
       }
       .popup-notification.show {
         opacity: 1;
         pointer-events: auto;
         transform: translate(-50%, -50%) translateY(0);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ===== PAGINATION BUTTONS ===== */
+      #paginationControls {
+        text-align: center;
+        margin-top: 15px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      #paginationControls.show {
+        opacity: 1;
+      }
+      #paginationControls button {
+        background: var(--pagination-bg);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: var(--pagination-color);
+        padding: 6px 14px;
+        margin: 0 4px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-family: var(--font-glacial);
+        font-weight: 600;
+        transition:
+          background 0.3s,
+          transform 0.2s;
+      }
+      #paginationControls button:hover:not(:disabled) {
+        background: var(--pagination-hover);
+        transform: scale(1.05);
+      }
+      #paginationControls button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      #paginationControls button.current {
+        background: var(--primary);
+        color: #fff;
+        font-weight: bold;
       }
     </style>
   </head>
@@ -359,10 +401,10 @@
           <button type="submit">Post Comment</button>
         </form>
         <div id="commentsList"></div>
+        <div id="paginationControls"></div>
       </div>
     </div>
 
-    <!-- CENTERED POPUP -->
     <div id="popupNotification" class="popup-notification">
       Your comment is posted. Thank you for your feedback.
     </div>
@@ -394,7 +436,6 @@
           });
         });
 
-      // Firebase init
       const firebaseConfig = {
         apiKey: "AIzaSyCSsHiKnt2IwzcgBDbOT0qDZE_d96DhAbk",
         authDomain: "womanhood-77b05.firebaseapp.com",
@@ -412,16 +453,10 @@
       const commentInput = document.getElementById("commentInput");
       const roleSelect = document.getElementById("roleSelect");
       const commentsList = document.getElementById("commentsList");
-
+      const paginationControls = document.getElementById("paginationControls");
       let allComments = [];
-      let popupTimer;
-
-      function showPopup() {
-        const popup = document.getElementById("popupNotification");
-        clearTimeout(popupTimer);
-        popup.classList.add("show");
-        popupTimer = setTimeout(() => popup.classList.remove("show"), 3000);
-      }
+      let currentPage = 1;
+      const commentsPerPage = 4;
 
       const mutedColors = [
         "#B45573",
@@ -436,21 +471,27 @@
         return mutedColors[Math.floor(Math.random() * mutedColors.length)];
       }
 
+      function showPopup() {
+        const popup = document.getElementById("popupNotification");
+        popup.classList.add("show");
+        setTimeout(() => popup.classList.remove("show"), 3000);
+      }
+
       commentForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const text = commentInput.value.trim();
         const selectedRole = roleSelect.value;
-
         if (!text || !selectedRole)
           return alert("Please write a comment and select your role!");
         if (text.length > 500)
           return alert("Comment too long. Limit to 500 characters.");
-
         if (userRoleStored && userRoleStored !== selectedRole) {
-          const confirmChange = confirm(
-            `You previously selected ${userRoleStored}. Post as ${selectedRole}?`,
-          );
-          if (!confirmChange) return;
+          if (
+            !confirm(
+              `You previously selected ${userRoleStored}. Post as ${selectedRole}?`,
+            )
+          )
+            return;
         }
         if (!userRoleStored) localStorage.setItem("userRole", selectedRole);
 
@@ -459,16 +500,14 @@
             role: selectedRole,
             comment: text,
             color: randomColor(),
-            timestamp: firebase.firestore.Timestamp.fromDate(
-              new Date(Date.now() + 8 * 60 * 60 * 1000),
-            ),
+            timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
           })
           .then(() => {
             commentInput.value = "";
             roleSelect.value = "";
             showPopup();
           })
-          .catch((err) => alert("Failed to post comment. Please try again."));
+          .catch(() => alert("Failed to post comment. Please try again."));
       });
 
       db.collection("comments")
@@ -476,21 +515,71 @@
         .onSnapshot((snapshot) => {
           allComments = [];
           snapshot.forEach((doc) => allComments.push({ ...doc.data() }));
-          renderComments(1);
+          renderComments(currentPage);
         });
 
       function renderComments(page = 1) {
+        currentPage = page;
+        const totalPages = Math.ceil(allComments.length / commentsPerPage);
         commentsList.innerHTML = "";
-        const commentsPerPage = 4;
+        paginationControls.classList.remove("show");
+
         const start = (page - 1) * commentsPerPage;
         const end = start + commentsPerPage;
         const commentsToShow = allComments.slice(start, end);
+
         commentsToShow.forEach((c) => {
           const div = document.createElement("div");
           div.className = "comment " + c.role.toLowerCase();
-          div.innerHTML = `<strong>${c.role}:</strong> ${c.comment}<span class="timestamp">${new Date(c.timestamp.seconds * 1000).toLocaleString()}</span>`;
+          div.style.opacity = 0;
+
+          // PH Time display
+          const phTime = new Date(c.timestamp.seconds * 1000).toLocaleString(
+            "en-PH",
+            {
+              timeZone: "Asia/Manila",
+              hour12: true,
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            },
+          );
+
+          div.innerHTML = `<strong>${c.role}:</strong> ${c.comment}<span class="timestamp">${phTime}</span>`;
           commentsList.appendChild(div);
+          setTimeout(() => (div.style.opacity = 1), 50);
         });
+
+        renderPaginationControls(totalPages);
+      }
+
+      function renderPaginationControls(totalPages) {
+        paginationControls.innerHTML = "";
+        if (totalPages <= 1) return;
+        paginationControls.classList.add("show");
+
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "‹";
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => renderComments(currentPage - 1);
+        paginationControls.appendChild(prevBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const pageBtn = document.createElement("button");
+          pageBtn.textContent = i;
+          pageBtn.className = i === currentPage ? "current" : "";
+          pageBtn.onclick = () => renderComments(i);
+          paginationControls.appendChild(pageBtn);
+        }
+
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "›";
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = () => renderComments(currentPage + 1);
+        paginationControls.appendChild(nextBtn);
       }
     </script>
   </body>
