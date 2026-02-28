@@ -27,6 +27,7 @@
         padding: 0;
         box-sizing: border-box;
       }
+
       body {
         font-family: var(--font-glacial);
         min-height: 100vh;
@@ -84,7 +85,7 @@
         opacity: 0;
       }
 
-      /* ===== NAVBAR ===== */
+      /* NAVBAR */
       .navbar {
         display: flex;
         justify-content: space-between;
@@ -123,7 +124,6 @@
         color: var(--primary);
         transform: scale(1.05);
       }
-
       .nav-links {
         list-style: none;
       }
@@ -142,7 +142,7 @@
         color: var(--primary);
       }
 
-      /* ===== VIDEO ===== */
+      /* VIDEO */
       .video-container {
         max-width: 1600px;
         width: 95%;
@@ -172,7 +172,7 @@
         }
       }
 
-      /* ===== BUTTON ===== */
+      /* BUTTON */
       .gradient-button {
         display: inline-block;
         margin: 20px 10px 0;
@@ -209,7 +209,7 @@
         margin-bottom: 50px;
       }
 
-      /* ===== COMMENTS ===== */
+      /* COMMENTS */
       .comments-container {
         max-width: 900px;
         width: 90%;
@@ -290,7 +290,7 @@
         text-align: right;
       }
 
-      /* ===== GLASS POPUP ===== */
+      /* POPUP */
       .popup-notification {
         position: fixed;
         top: 50%;
@@ -320,7 +320,7 @@
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
       }
 
-      /* ===== PAGINATION BUTTONS ===== */
+      /* PAGINATION */
       #paginationControls {
         text-align: center;
         margin-top: 15px;
@@ -425,6 +425,7 @@
         document.body.classList.remove("bg-fade-in");
         setTimeout(() => (window.location.href = url), 800);
       }
+
       document
         .querySelectorAll(".gradient-button,.logo,.nav-links a")
         .forEach((link) => {
@@ -436,6 +437,7 @@
           });
         });
 
+      // Firebase init
       const firebaseConfig = {
         apiKey: "AIzaSyCSsHiKnt2IwzcgBDbOT0qDZE_d96DhAbk",
         authDomain: "womanhood-77b05.firebaseapp.com",
@@ -458,6 +460,12 @@
       let currentPage = 1;
       const commentsPerPage = 4;
 
+      function showPopup() {
+        const popup = document.getElementById("popupNotification");
+        popup.classList.add("show");
+        setTimeout(() => popup.classList.remove("show"), 3000);
+      }
+
       const mutedColors = [
         "#B45573",
         "#C58FA3",
@@ -469,12 +477,6 @@
       ];
       function randomColor() {
         return mutedColors[Math.floor(Math.random() * mutedColors.length)];
-      }
-
-      function showPopup() {
-        const popup = document.getElementById("popupNotification");
-        popup.classList.add("show");
-        setTimeout(() => popup.classList.remove("show"), 3000);
       }
 
       commentForm.addEventListener("submit", (e) => {
@@ -494,7 +496,6 @@
             return;
         }
         if (!userRoleStored) localStorage.setItem("userRole", selectedRole);
-
         db.collection("comments")
           .add({
             role: selectedRole,
@@ -520,6 +521,9 @@
 
       function renderComments(page = 1) {
         currentPage = page;
+        // Sort latest first
+        allComments.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
+
         const totalPages = Math.ceil(allComments.length / commentsPerPage);
         commentsList.innerHTML = "";
         paginationControls.classList.remove("show");
@@ -532,22 +536,10 @@
           const div = document.createElement("div");
           div.className = "comment " + c.role.toLowerCase();
           div.style.opacity = 0;
-
-          // PH Time display
           const phTime = new Date(c.timestamp.seconds * 1000).toLocaleString(
             "en-PH",
-            {
-              timeZone: "Asia/Manila",
-              hour12: true,
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit",
-            },
+            { hour12: false },
           );
-
           div.innerHTML = `<strong>${c.role}:</strong> ${c.comment}<span class="timestamp">${phTime}</span>`;
           commentsList.appendChild(div);
           setTimeout(() => (div.style.opacity = 1), 50);
