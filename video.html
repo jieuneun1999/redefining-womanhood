@@ -521,7 +521,6 @@
 
       function renderComments(page = 1) {
         currentPage = page;
-        // Sort latest first
         allComments.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
 
         const totalPages = Math.ceil(allComments.length / commentsPerPage);
@@ -536,9 +535,17 @@
           const div = document.createElement("div");
           div.className = "comment " + c.role.toLowerCase();
           div.style.opacity = 0;
+          // NEW: Manila time, 12-hour format, no seconds, prettier
           const phTime = new Date(c.timestamp.seconds * 1000).toLocaleString(
             "en-PH",
-            { hour12: false },
+            {
+              hour12: true,
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+            },
           );
           div.innerHTML = `<strong>${c.role}:</strong> ${c.comment}<span class="timestamp">${phTime}</span>`;
           commentsList.appendChild(div);
