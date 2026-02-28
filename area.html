@@ -94,7 +94,6 @@
         height: 100vh;
       }
 
-      /* Pink headings initially, white on hover */
       .area-container h1,
       .area-container h2 {
         margin: 0 0 15px 0;
@@ -138,6 +137,11 @@
         cursor: pointer;
         border-radius: 10px;
         overflow: hidden;
+
+        /* Flexbox to center button under image */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       .image-wrapper {
@@ -145,6 +149,7 @@
         border-radius: 10px;
         overflow: hidden;
         transition: transform 0.3s ease;
+        width: 100%;
       }
       .image-wrapper img {
         width: 100%;
@@ -162,10 +167,11 @@
         filter: brightness(0.9);
       }
 
-      /* ================== UPDATED BUTTON STYLE ONLY ================== */
+      /* ================== BUTTON STYLE ================== */
       .area-card-title {
         margin-top: 18px;
-        display: inline-block;
+        display: block; /* important for centering */
+        text-align: center;
         padding: 14px 26px;
         font-weight: 700;
         font-size: 1.45rem;
@@ -243,8 +249,7 @@
       </div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
       </ul>
     </nav>
 
@@ -289,10 +294,8 @@
 
     <script>
       window.addEventListener("DOMContentLoaded", () => {
-        // Fade in body
         document.body.classList.add("fade-in");
 
-        // Sequentially fade in images and titles
         const cards = document.querySelectorAll(".area-card");
         cards.forEach((card, index) => {
           const img = card.querySelector("img");
@@ -310,7 +313,6 @@
         }, 600);
       }
 
-      // Fade out on card click
       document
         .querySelectorAll(".image-wrapper, .area-card-title")
         .forEach((el) => {

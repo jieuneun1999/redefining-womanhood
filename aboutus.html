@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us</title>
+
+    <!-- Google Fonts: Glacial Indifference + Libre Baskerville -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700;900&family=Libre+Baskerville:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary: #ff5a87;
+        --secondary: #ff8bb1;
+        --font-glacial: "Glacial Indifference", sans-serif;
+        --font-title: "Libre Baskerville", serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font-glacial);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+        color: white;
+      }
+      body.bg-fade-in::after {
+        opacity: 1;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background: linear-gradient(-45deg, #ffe3e8, #ff8bb1, #ff5a87, #ffe3e8);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        opacity: 0.45;
+      }
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .page-content {
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+      }
+      .page-content.fade-in {
+        opacity: 1;
+      }
+      .page-content.fade-out {
+        opacity: 0;
+      }
+
+      /* ===== NAVBAR & LOGO ===== */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 10%;
+        font-weight: 900;
+        font-size: 1.8rem;
+        position: sticky;
+        top: 0;
+        background: none;
+        backdrop-filter: blur(6px);
+        z-index: 10;
+      }
+      .logo {
+        cursor: pointer;
+        font-family: var(--font-glacial) !important;
+        color: white;
+        text-align: left;
+        line-height: 1.2;
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease;
+        font-weight: bold !important;
+      }
+      .logo .redefining {
+        display: block;
+        font-size: 1.6rem;
+        position: relative;
+        left: 0.58em;
+      }
+      .logo .womanhood {
+        display: block;
+        font-size: 2.8rem;
+        position: relative;
+      }
+      .logo:hover {
+        color: var(--primary);
+        transform: scale(1.05);
+      }
+      .nav-links {
+        list-style: none;
+        display: flex;
+      }
+      .nav-links li {
+        margin-left: 25px;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+      }
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+      }
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 15px;
+        border-radius: 8px;
+        gap: 15px;
+      }
+
+      /* ===== GALLERY STRIPS ===== */
+      .gallery {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        gap: 0.6rem;
+        overflow: hidden;
+        position: relative;
+      }
+      .gallery__strip__wrapper {
+        flex: 0 0 33%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        overflow: hidden;
+      }
+      .gallery__strip-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+      .strip-up {
+        animation-name: scroll-up;
+      }
+      .strip-down {
+        animation-name: scroll-down;
+      }
+      .strip-up .photo,
+      .strip-down .photo {
+        flex-shrink: 0;
+      }
+      @keyframes scroll-up {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-50%);
+        }
+      }
+      @keyframes scroll-down {
+        0% {
+          transform: translateY(-50%);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+      .photo__image img {
+        width: 100%;
+        display: block;
+        transition:
+          transform 1s cubic-bezier(0.19, 1, 0.22, 1),
+          filter 0.6s ease;
+        filter: grayscale(40%);
+      }
+      .photo:hover img {
+        transform: scale(1.05);
+        filter: grayscale(0);
+      }
+
+      /* ===== CONTENT OVERLAY ===== */
+      .content-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 1000px;
+        display: grid;
+        gap: 30px;
+        padding: 20px;
+        z-index: 5;
+      }
+      .main-card,
+      .card {
+        background: rgba(20, 20, 20, 0.75);
+        padding: 30px 25px;
+        border-radius: 12px;
+        line-height: 1.7;
+      }
+      .main-card h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+      }
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        text-align: center;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      }
+      .card-icon {
+        font-size: 2.8rem;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      /* ===== FLOATING FACEBOOK ICON USING IMAGE ===== */
+      .floating-facebook {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 20;
+        display: inline-block;
+        transition: transform 0.3s ease;
+      }
+      .floating-facebook img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      .floating-facebook:hover img {
+        transform: scale(1.2);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 992px) {
+        .gallery__strip__wrapper {
+          flex: 0 0 50%;
+        }
+        .cards-grid {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+      }
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+        .floating-facebook img {
+          width: 50px;
+          height: 50px;
+        }
+      }
+      @media (max-width: 600px) {
+        .gallery {
+          flex-direction: column;
+          height: auto;
+        }
+        .gallery__strip__wrapper {
+          flex: 1 1 100%;
+          max-height: 250px;
+        }
+        .gallery__strip-inner {
+          gap: 0.4rem;
+        }
+        .photo__image img {
+          height: 100%;
+          object-fit: cover;
+        }
+        .content-overlay {
+          position: relative;
+          transform: none;
+          top: auto;
+          left: auto;
+          padding: 15px;
+          margin-bottom: 30px;
+        }
+        .card {
+          padding: 20px 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-content">
+      <!-- NAVBAR & LOGO -->
+      <nav class="navbar">
+        <div class="logo" onclick="window.location.href = 'area.html'">
+          <span class="redefining">Redefining</span>
+          <span class="womanhood">Womanhood</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+        </ul>
+        <div
+          class="hamburger"
+          onclick="
+            document.querySelector('.nav-links').classList.toggle('active')
+          "
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+
+      <!-- PAGE CONTENT -->
+      <div class="gallery">
+        <!-- STRIPS WITH DUPLICATE IMAGES -->
+        <div class="gallery__strip__wrapper">
+          <div
+            class="gallery__strip-inner strip-up"
+            style="animation-duration: 60s"
+          >
+            <div class="photo">
+              <div class="photo__image"><img src="image/1.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/4.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/7.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/1.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/4.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/7.jpg" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery__strip__wrapper">
+          <div
+            class="gallery__strip-inner strip-down"
+            style="animation-duration: 65s"
+          >
+            <div class="photo">
+              <div class="photo__image"><img src="image/2.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/5.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/8.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/2.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/5.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/8.jpg" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery__strip__wrapper">
+          <div
+            class="gallery__strip-inner strip-up"
+            style="animation-duration: 70s"
+          >
+            <div class="photo">
+              <div class="photo__image"><img src="image/3.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/6.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/9.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/3.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/6.jpg" /></div>
+            </div>
+            <div class="photo">
+              <div class="photo__image"><img src="image/9.jpg" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-overlay">
+          <div class="main-card">
+            <h2>SBECED 1D – Redefining Womanhood</h2>
+            <p>
+              We are SBECED 1D from Quezon City University, a collective of
+              aspiring educators committed to creativity, collaboration, and
+              social awareness.
+              <br /><br />
+              Our project, <strong>“Redefining Womanhood,”</strong> challenges
+              traditional stereotypes and celebrates the evolving strength,
+              intelligence, resilience, and diversity of women in modern
+              society. <br /><br />
+              Our exhibit panel symbolizes transformation—just as discarded
+              materials can be reshaped into meaningful art, perspectives about
+              women can also be reconstructed into narratives of empowerment and
+              equality.
+              <br /><br />
+              This website serves as the digital extension of our exhibit,
+              expanding advocacy beyond the classroom.
+            </p>
+          </div>
+
+          <div class="cards-grid">
+            <div class="card">
+              <div class="card-icon"><i class="fas fa-users"></i></div>
+              <h3>Collaboration</h3>
+              <p>
+                Real change is never built alone. Every idea matters and every
+                voice is heard.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+              <h3>Creativity</h3>
+              <p>
+                Creativity is how we resist limitation. Imagination sparks
+                dialogue and empowerment.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+              <h3>Excellence</h3>
+              <p>
+                Excellence goes beyond grades—thinking critically and leading
+                with purpose.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOATING FACEBOOK ICON USING IMAGE -->
+    <a
+      href="https://www.facebook.com/profile.php?id=61588227307015&rdid=2q7Ft7w28RMd5DFZ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BvNcnJ1nR#"
+      target="_blank"
+      class="floating-facebook"
+    >
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_(2019).png"
+        alt="Facebook"
+      />
+    </a>
+
+    <script>
+      const pageContent = document.querySelector(".page-content");
+      window.addEventListener("load", () => {
+        setTimeout(() => pageContent.classList.add("fade-in"), 50);
+        document.body.classList.add("bg-fade-in");
+      });
+      function navigateTo(url) {
+        pageContent.classList.remove("fade-in");
+        pageContent.classList.add("fade-out");
+        document.body.classList.remove("bg-fade-in");
+        setTimeout(() => {
+          window.location.href = url;
+        }, 800);
+      }
+    </script>
+  </body>
+</html>

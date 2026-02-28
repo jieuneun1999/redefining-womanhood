@@ -34,7 +34,7 @@
         color: black;
       }
 
-      /* Background image wrapper for fade */
+      /* Background fade */
       body::after {
         content: "";
         position: fixed;
@@ -47,7 +47,6 @@
         opacity: 0;
         transition: opacity 1.2s ease-in-out;
       }
-
       body.bg-fade-in::after {
         opacity: 1;
       }
@@ -62,7 +61,6 @@
         animation: gradientBG 15s ease infinite;
         opacity: 0.45;
       }
-
       @keyframes gradientBG {
         0% {
           background-position: 0% 50%;
@@ -75,7 +73,7 @@
         }
       }
 
-      /* Fade-in/out page */
+      /* Fade page */
       .page-content {
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
@@ -87,7 +85,7 @@
         opacity: 0;
       }
 
-      /* ===== NAVBAR EXACTLY LIKE AREA/POLITICS ===== */
+      /* ===== NAVBAR + HAMBURGER ===== */
       .navbar {
         display: flex;
         justify-content: space-between;
@@ -101,7 +99,6 @@
         backdrop-filter: blur(6px);
         z-index: 10;
       }
-
       .logo {
         cursor: pointer;
         font-family: var(--font-glacial);
@@ -131,10 +128,11 @@
 
       .nav-links {
         list-style: none;
+        display: flex;
+        gap: 25px;
       }
       .nav-links li {
         display: inline-block;
-        margin-left: 25px;
       }
       .nav-links a {
         color: white;
@@ -147,6 +145,36 @@
         color: var(--primary);
       }
 
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 28px;
+        height: 22px;
+        cursor: pointer;
+      }
+      .hamburger span {
+        display: block;
+        height: 4px;
+        background: white;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+      .nav-links.mobile {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.85);
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 20;
+      }
+      .nav-links.mobile.show {
+        display: flex;
+      }
+
       /* ===== CONTENT ===== */
       .content-container {
         max-width: 1200px;
@@ -155,7 +183,6 @@
         line-height: 1.85;
         text-align: left;
       }
-
       h1.gradient-text {
         font-family: var(--font-title);
         background: linear-gradient(90deg, #ff11c3, #ff7acc, #ffffff);
@@ -169,7 +196,6 @@
         margin-bottom: 40px;
         text-align: center;
       }
-
       ul {
         list-style: disc inside;
         margin-bottom: 40px;
@@ -181,7 +207,7 @@
         font-weight: bold;
       }
 
-      /* ===== Gradient Button LIKE POLITICS ===== */
+      /* Gradient buttons */
       .gradient-button {
         display: inline-block;
         margin-top: 20px;
@@ -219,6 +245,17 @@
           font-size: 1.35rem;
           padding: 13px 24px;
         }
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+        .nav-links.mobile {
+          top: 70px;
+          right: 10%;
+          width: 200px;
+        }
       }
       @media (max-width: 600px) {
         .gradient-button {
@@ -231,13 +268,21 @@
 
   <body>
     <div class="page-content">
-      <!-- ===== NAVBAR EXACT COPY ===== -->
+      <!-- NAVBAR WITH HAMBURGER -->
       <nav class="navbar">
         <div class="logo" onclick="window.location.href = 'area.html'">
           <span class="redefining">Redefining</span>
           <span class="womanhood">Womanhood</span>
         </div>
+
         <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+        </ul>
+
+        <div class="hamburger"><span></span><span></span><span></span></div>
+
+        <ul class="nav-links mobile">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
           <li><a href="contact.html">Contact Us</a></li>
@@ -246,13 +291,11 @@
 
       <div class="content-container">
         <h1 class="gradient-text">References</h1>
-
         <ul>
           <li>
             Bony Bengwayan. (2024). Philippine woman labor force now over 21M
             strong.
             https://baguioheraldexpressonline.com/philippine-women-labor-force-now-over-21m-strong/
-            https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/women-in-the-workplace
             https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/women-in-the-workplace
           </li>
           <li>
@@ -273,13 +316,15 @@
 
     <script>
       const pageContent = document.querySelector(".page-content");
+      const hamburger = document.querySelector(".hamburger");
+      const mobileMenu = document.querySelector(".nav-links.mobile");
 
       window.addEventListener("load", () => {
         setTimeout(() => pageContent.classList.add("fade-in"), 50);
         document.body.classList.add("bg-fade-in");
       });
 
-      document.querySelectorAll("a").forEach((link) => {
+      document.querySelectorAll("a,.logo").forEach((link) => {
         link.addEventListener("click", (e) => {
           const href = link.getAttribute("href");
           if (!href || href.startsWith("#")) return;
@@ -291,6 +336,12 @@
             window.location.href = href;
           }, 800);
         });
+      });
+
+      // Hamburger toggle
+      hamburger.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+        hamburger.classList.toggle("active");
       });
     </script>
   </body>

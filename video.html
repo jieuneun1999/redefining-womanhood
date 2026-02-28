@@ -36,6 +36,7 @@
         color: black;
       }
 
+      /* BACKGROUND & GRADIENT */
       body::after {
         content: "";
         position: fixed;
@@ -85,7 +86,7 @@
         opacity: 0;
       }
 
-      /* NAVBAR */
+      /* ===== NAVBAR WITH HAMBURGER ===== */
       .navbar {
         display: flex;
         justify-content: space-between;
@@ -112,8 +113,8 @@
       .logo .redefining {
         display: block;
         font-size: 1.6rem;
-        left: 0.58em;
         position: relative;
+        left: 0.58em;
       }
       .logo .womanhood {
         display: block;
@@ -124,12 +125,14 @@
         color: var(--primary);
         transform: scale(1.05);
       }
+
       .nav-links {
         list-style: none;
+        display: flex;
+        gap: 25px;
       }
       .nav-links li {
         display: inline-block;
-        margin-left: 25px;
       }
       .nav-links a {
         color: white;
@@ -142,7 +145,38 @@
         color: var(--primary);
       }
 
-      /* VIDEO */
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 28px;
+        height: 22px;
+        cursor: pointer;
+      }
+      .hamburger span {
+        display: block;
+        height: 4px;
+        background: white;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+      .nav-links.mobile {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.85);
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 20;
+      }
+      .nav-links.mobile.show {
+        display: flex;
+      }
+
+      /* ===== VIDEO ===== */
       .video-container {
         max-width: 1600px;
         width: 95%;
@@ -156,7 +190,6 @@
         height: 80vh;
         max-height: 900px;
         border: none;
-        outline: none;
         border-radius: 12px;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
         background: transparent;
@@ -209,7 +242,7 @@
         margin-bottom: 50px;
       }
 
-      /* COMMENTS */
+      /* COMMENTS & PAGINATION (unchanged) */
       .comments-container {
         max-width: 900px;
         width: 90%;
@@ -223,8 +256,8 @@
       .comments-container h2 {
         margin-bottom: 25px;
         text-align: center;
-        font-family: var(--font-title);
-        color: var(--secondary);
+        font-family: var(--font-glacial);
+        color: white;
         font-weight: bold;
       }
       #commentForm textarea,
@@ -257,7 +290,6 @@
         background: var(--secondary);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       }
-
       .comment {
         padding: 18px 22px;
         margin-bottom: 18px;
@@ -289,8 +321,6 @@
         margin-top: 8px;
         text-align: right;
       }
-
-      /* POPUP */
       .popup-notification {
         position: fixed;
         top: 50%;
@@ -319,8 +349,6 @@
         transform: translate(-50%, -50%) translateY(0);
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
       }
-
-      /* PAGINATION */
       #paginationControls {
         text-align: center;
         margin-top: 15px;
@@ -357,6 +385,30 @@
         color: #fff;
         font-weight: bold;
       }
+
+      @media (max-width: 992px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+        .nav-links.mobile {
+          top: 70px;
+          right: 10%;
+          width: 200px;
+        }
+        .gradient-button {
+          font-size: 1.35rem;
+          padding: 13px 24px;
+        }
+      }
+      @media (max-width: 600px) {
+        .gradient-button {
+          font-size: 1.25rem;
+          padding: 12px 22px;
+        }
+      }
     </style>
   </head>
 
@@ -367,7 +419,15 @@
           <span class="redefining">Redefining</span>
           <span class="womanhood">Womanhood</span>
         </div>
+
         <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+        </ul>
+
+        <div class="hamburger"><span></span><span></span><span></span></div>
+
+        <ul class="nav-links mobile">
           <li><a href="index.html">Home</a></li>
           <li><a href="#">About Us</a></li>
           <li><a href="#">Contact Us</a></li>
@@ -386,7 +446,7 @@
       </div>
 
       <div class="comments-container">
-        <h2>COMMENTS</h2>
+        <h2>COMMENT</h2>
         <form id="commentForm">
           <textarea
             id="commentInput"
@@ -414,6 +474,9 @@
 
     <script>
       const pageContent = document.querySelector(".page-content");
+      const hamburger = document.querySelector(".hamburger");
+      const mobileMenu = document.querySelector(".nav-links.mobile");
+
       window.addEventListener("load", () => {
         setTimeout(() => pageContent.classList.add("fade-in"), 50);
         document.body.classList.add("bg-fade-in");
@@ -437,7 +500,13 @@
           });
         });
 
-      // Firebase init
+      // Hamburger toggle
+      hamburger.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+        hamburger.classList.toggle("active");
+      });
+
+      // Firebase init and comment logic (unchanged)
       const firebaseConfig = {
         apiKey: "AIzaSyCSsHiKnt2IwzcgBDbOT0qDZE_d96DhAbk",
         authDomain: "womanhood-77b05.firebaseapp.com",
@@ -465,7 +534,6 @@
         popup.classList.add("show");
         setTimeout(() => popup.classList.remove("show"), 3000);
       }
-
       const mutedColors = [
         "#B45573",
         "#C58FA3",
@@ -522,20 +590,16 @@
       function renderComments(page = 1) {
         currentPage = page;
         allComments.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
-
         const totalPages = Math.ceil(allComments.length / commentsPerPage);
         commentsList.innerHTML = "";
         paginationControls.classList.remove("show");
-
         const start = (page - 1) * commentsPerPage;
         const end = start + commentsPerPage;
         const commentsToShow = allComments.slice(start, end);
-
         commentsToShow.forEach((c) => {
           const div = document.createElement("div");
           div.className = "comment " + c.role.toLowerCase();
           div.style.opacity = 0;
-          // NEW: Manila time, 12-hour format, no seconds, prettier
           const phTime = new Date(c.timestamp.seconds * 1000).toLocaleString(
             "en-PH",
             {
@@ -551,7 +615,6 @@
           commentsList.appendChild(div);
           setTimeout(() => (div.style.opacity = 1), 50);
         });
-
         renderPaginationControls(totalPages);
       }
 
@@ -559,13 +622,11 @@
         paginationControls.innerHTML = "";
         if (totalPages <= 1) return;
         paginationControls.classList.add("show");
-
         const prevBtn = document.createElement("button");
         prevBtn.textContent = "‹";
         prevBtn.disabled = currentPage === 1;
         prevBtn.onclick = () => renderComments(currentPage - 1);
         paginationControls.appendChild(prevBtn);
-
         for (let i = 1; i <= totalPages; i++) {
           const pageBtn = document.createElement("button");
           pageBtn.textContent = i;
@@ -573,7 +634,6 @@
           pageBtn.onclick = () => renderComments(i);
           paginationControls.appendChild(pageBtn);
         }
-
         const nextBtn = document.createElement("button");
         nextBtn.textContent = "›";
         nextBtn.disabled = currentPage === totalPages;

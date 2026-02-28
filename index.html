@@ -108,7 +108,7 @@
         display: block;
         font-size: 1.8rem;
         position: relative;
-        left: 0.58em; /* aligned over O → N of Womanhood */
+        left: 0.58em;
       }
       .logo .womanhood {
         display: block;
@@ -116,8 +116,12 @@
         position: relative;
       }
 
+      .nav-links {
+        list-style: none;
+        display: flex;
+      }
+
       .nav-links li {
-        display: inline-block;
         margin-left: 25px;
       }
 
@@ -131,6 +135,33 @@
 
       .nav-links a:hover {
         color: var(--primary);
+      }
+
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+      }
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+      }
+
+      /* Active nav for mobile */
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 15px;
+        border-radius: 8px;
+        gap: 15px;
       }
 
       /* HERO CONTENT */
@@ -187,7 +218,6 @@
         align-items: center;
       }
 
-      /* Bigger images */
       .choice-card img {
         width: 300px;
         height: 300px;
@@ -201,7 +231,6 @@
         transform: scale(1.07);
       }
 
-      /* TEACHER/STUDENT BUTTON - smooth white border only */
       .choice-card button {
         margin-top: 15px;
         padding: 18px 50px;
@@ -221,7 +250,6 @@
           border 0.4s ease;
       }
 
-      /* Pseudo-element for smooth border */
       .choice-card button::before {
         content: "";
         position: absolute;
@@ -250,7 +278,6 @@
         background: transparent;
       }
 
-      /* OR text between images */
       .or-text {
         font-family: var(--font-glacial);
         font-weight: bold;
@@ -277,6 +304,12 @@
         .logo .redefining {
           left: 0.5em;
           font-size: 1.5rem;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
         }
       }
 
@@ -319,9 +352,18 @@
       </div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
       </ul>
+      <div
+        class="hamburger"
+        onclick="
+          document.querySelector('.nav-links').classList.toggle('active')
+        "
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
 
     <section class="hero">

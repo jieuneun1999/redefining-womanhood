@@ -87,7 +87,7 @@
         opacity: 0;
       }
 
-      /* ===== NAVBAR EXACTLY LIKE AREA/POLITICS ===== */
+      /* ===== NAVBAR EXACT COPY ===== */
       .navbar {
         display: flex;
         justify-content: space-between;
@@ -131,10 +131,11 @@
 
       .nav-links {
         list-style: none;
+        display: flex;
+        gap: 25px;
       }
       .nav-links li {
         display: inline-block;
-        margin-left: 25px;
       }
       .nav-links a {
         color: white;
@@ -145,6 +146,38 @@
       }
       .nav-links a:hover {
         color: var(--primary);
+      }
+
+      /* ===== Hamburger Menu ===== */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 28px;
+        height: 22px;
+        cursor: pointer;
+      }
+      .hamburger span {
+        display: block;
+        height: 4px;
+        background: white;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links.mobile {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.85);
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 20;
+      }
+      .nav-links.mobile.show {
+        display: flex;
       }
 
       /* ===== CONTENT ===== */
@@ -181,7 +214,7 @@
         font-weight: bold;
       }
 
-      /* ===== Gradient Button LIKE POLITICS ===== */
+      /* Gradient Button */
       .gradient-button {
         display: inline-block;
         margin-top: 20px;
@@ -215,6 +248,17 @@
       }
 
       @media (max-width: 992px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+        .nav-links.mobile {
+          top: 70px;
+          right: 10%;
+          width: 200px;
+        }
         .gradient-button {
           font-size: 1.35rem;
           padding: 13px 24px;
@@ -231,13 +275,25 @@
 
   <body>
     <div class="page-content">
-      <!-- ===== NAVBAR EXACT COPY ===== -->
+      <!-- ===== NAVBAR WITH HAMBURGER ===== -->
       <nav class="navbar">
         <div class="logo" onclick="window.location.href = 'area.html'">
           <span class="redefining">Redefining</span>
           <span class="womanhood">Womanhood</span>
         </div>
+
         <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+        </ul>
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <ul class="nav-links mobile">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
           <li><a href="contact.html">Contact Us</a></li>
@@ -281,6 +337,8 @@
 
     <script>
       const pageContent = document.querySelector(".page-content");
+      const hamburger = document.querySelector(".hamburger");
+      const mobileMenu = document.querySelector(".nav-links.mobile");
 
       window.addEventListener("load", () => {
         setTimeout(() => pageContent.classList.add("fade-in"), 50);
@@ -299,6 +357,12 @@
             window.location.href = href;
           }, 800);
         });
+      });
+
+      // Hamburger toggle
+      hamburger.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+        hamburger.classList.toggle("active");
       });
     </script>
   </body>

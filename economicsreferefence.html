@@ -34,7 +34,7 @@
         color: black;
       }
 
-      /* Background image wrapper for fade */
+      /* Background */
       body::after {
         content: "";
         position: fixed;
@@ -47,11 +47,9 @@
         opacity: 0;
         transition: opacity 1.2s ease-in-out;
       }
-
       body.bg-fade-in::after {
         opacity: 1;
       }
-
       body::before {
         content: "";
         position: fixed;
@@ -62,7 +60,6 @@
         animation: gradientBG 15s ease infinite;
         opacity: 0.45;
       }
-
       @keyframes gradientBG {
         0% {
           background-position: 0% 50%;
@@ -75,7 +72,7 @@
         }
       }
 
-      /* Fade-in/out page */
+      /* Page fade */
       .page-content {
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
@@ -87,7 +84,7 @@
         opacity: 0;
       }
 
-      /* ===== NAVBAR EXACTLY LIKE AREA/POLITICS ===== */
+      /* Navbar */
       .navbar {
         display: flex;
         justify-content: space-between;
@@ -131,6 +128,7 @@
 
       .nav-links {
         list-style: none;
+        display: flex;
       }
       .nav-links li {
         display: inline-block;
@@ -147,7 +145,42 @@
         color: var(--primary);
       }
 
-      /* ===== CONTENT ===== */
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+      }
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+      }
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 15px;
+        border-radius: 8px;
+        gap: 15px;
+      }
+
+      /* Content */
       .content-container {
         max-width: 1200px;
         margin: 60px auto 100px;
@@ -181,7 +214,7 @@
         font-weight: bold;
       }
 
-      /* ===== Gradient Button LIKE POLITICS ===== */
+      /* Gradient button */
       .gradient-button {
         display: inline-block;
         margin-top: 20px;
@@ -214,6 +247,14 @@
         -webkit-text-stroke: 1px black;
       }
 
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
       @media (max-width: 992px) {
         .gradient-button {
           font-size: 1.35rem;
@@ -231,7 +272,7 @@
 
   <body>
     <div class="page-content">
-      <!-- ===== NAVBAR EXACT COPY ===== -->
+      <!-- Navbar -->
       <nav class="navbar">
         <div class="logo" onclick="window.location.href = 'area.html'">
           <span class="redefining">Redefining</span>
@@ -239,9 +280,13 @@
         </div>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
         </ul>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </nav>
 
       <div class="content-container">
@@ -251,8 +296,8 @@
           <li>
             Duran-Pascual, R. (2025, September 3). Private Sector’s Guide to
             Advancing Women’s Economic Equality: Strategies from the Trabaho
-            Para sa Bayan Plan. Investing in
-            Women.https://investinginwomen.asia/knowledge/private-sectors-guide-to-advancing-womens-economic-equality-strategies-from-the-trabaho-para-sa-bayan-plan/
+            Para sa Bayan Plan. Investing in Women.
+            https://investinginwomen.asia/knowledge/private-sectors-guide-to-advancing-womens-economic-equality-strategies-from-the-trabaho-para-sa-bayan-plan/
           </li>
           <li>
             Women and labor market participation. (n.d.).
@@ -277,8 +322,8 @@
           </li>
           <li>
             Women and labor market participation. (n.d.). Socioeconomic Research
-            Portal for the
-            Philippines(SERP-P).https://serp-p.pids.gov.ph/feature/public/index-view?feauredtype_id=1&slug=women-and-labor-market-participation
+            Portal for the Philippines(SERP-P).
+            https://serp-p.pids.gov.ph/feature/public/index-view?feauredtype_id=1&slug=women-and-labor-market-participation
           </li>
         </ul>
 
@@ -288,12 +333,22 @@
 
     <script>
       const pageContent = document.querySelector(".page-content");
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
 
+      // Hamburger toggle
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        hamburger.classList.toggle("active");
+      });
+
+      // Page fade-in
       window.addEventListener("load", () => {
         setTimeout(() => pageContent.classList.add("fade-in"), 50);
         document.body.classList.add("bg-fade-in");
       });
 
+      // Link fade navigation
       document.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", (e) => {
           const href = link.getAttribute("href");

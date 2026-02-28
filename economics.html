@@ -102,7 +102,7 @@
 
       .logo {
         cursor: pointer;
-        font-family: "Glacial Indifference", sans-serif !important;
+        font-family: var(--font-glacial) !important;
         color: white;
         text-align: left;
         line-height: 1.2;
@@ -129,6 +129,7 @@
 
       .nav-links {
         list-style: none;
+        display: flex;
       }
       .nav-links li {
         display: inline-block;
@@ -143,6 +144,42 @@
       }
       .nav-links a:hover {
         color: var(--primary);
+      }
+
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+      }
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+      }
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      /* Active nav for mobile */
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 15px;
+        border-radius: 8px;
+        gap: 15px;
       }
 
       /* ===== CONTENT ===== */
@@ -167,24 +204,12 @@
         margin-bottom: 25px;
       }
 
-      .gradient-text {
-        font-family: var(--font-title);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 1px black;
-        font-size: 4rem;
-        font-weight: 700;
-        padding: 10px 20px;
-        border-radius: 6px;
-        margin-bottom: 25px;
-      }
-
       p {
         font-family: var(--font-glacial);
         font-size: 1.3rem;
         margin-bottom: 28px;
         text-align: justify;
-        color: rgb(252, 237, 249);
+        color: white;
         font-weight: bold;
       }
 
@@ -222,6 +247,15 @@
       }
 
       /* ===== Responsive ===== */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+
       @media (max-width: 992px) {
         .gradient-button {
           font-size: 1.35rem;
@@ -247,8 +281,12 @@
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
         </ul>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </nav>
 
       <div class="content-container">
@@ -335,12 +373,22 @@
 
     <script>
       const pageContent = document.querySelector(".page-content");
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
 
+      // Hamburger toggle
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        hamburger.classList.toggle("active");
+      });
+
+      // Page fade-in
       window.addEventListener("load", () => {
         setTimeout(() => pageContent.classList.add("fade-in"), 50);
         document.body.classList.add("bg-fade-in");
       });
 
+      // Gradient button fade navigation
       document.querySelectorAll(".gradient-button").forEach((link) => {
         link.addEventListener("click", (e) => {
           const href = link.getAttribute("href");
