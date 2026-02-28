@@ -98,8 +98,8 @@
       .logo .redefining {
         display: block;
         font-size: 1.6rem;
-        position: relative;
         left: 0.58em;
+        position: relative;
       }
       .logo .womanhood {
         display: block;
@@ -167,6 +167,7 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        position: relative;
       }
       .gallery__strip-inner {
         display: flex;
@@ -174,13 +175,14 @@
         animation-iteration-count: infinite;
         animation-timing-function: linear;
       }
+
       .strip-up {
         animation-name: scroll-up;
-        animation-direction: alternate;
+        animation-direction: normal;
       }
       .strip-down {
-        animation-name: scroll-down;
-        animation-direction: alternate;
+        animation-name: scroll-down-fix;
+        animation-direction: normal;
       }
 
       @keyframes scroll-up {
@@ -191,9 +193,11 @@
           transform: translateY(-50%);
         }
       }
-      @keyframes scroll-down {
+
+      /* Fixed downward strip starting higher to avoid gaps */
+      @keyframes scroll-down-fix {
         0% {
-          transform: translateY(-50%);
+          transform: translateY(-10%);
         }
         100% {
           transform: translateY(0);
@@ -293,6 +297,7 @@
           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
       }
+
       @media (max-width: 768px) {
         .hamburger {
           display: flex;
@@ -306,27 +311,51 @@
         }
       }
 
-      /* ===== MOBILE SPECIFIC ===== */
-      @media (max-width: 600px) {
+      @media (max-width: 420px) {
         .gallery {
-          flex-direction: row;
-          height: 100vh;
-          gap: 0.3rem;
+          flex-direction: column;
+          height: auto;
+          gap: 0;
         }
         .gallery__strip__wrapper {
-          flex: 1 1 50%;
+          flex: 1 1 auto;
+          min-height: 200px;
+          max-height: 200px;
           overflow: hidden;
         }
         .gallery__strip-inner {
-          gap: 0;
-          flex-direction: column;
-          animation-direction: alternate;
+          flex-direction: row;
+          animation: scroll-horizontal 20s linear infinite;
+          width: calc(200%);
+        }
+        .gallery__strip-inner .photo {
+          flex: 0 0 50%;
+        }
+        @keyframes scroll-horizontal {
+          0% {
+            transform: translateX(-25%);
+          }
+          100% {
+            transform: translateX(-75%);
+          }
         }
         .photo__image img {
           width: 100%;
           height: 100%;
-          flex-shrink: 0;
           object-fit: cover;
+        }
+        .content-overlay {
+          position: relative;
+          transform: none;
+          top: auto;
+          left: auto;
+          text-align: center;
+          width: 95%;
+          gap: 15px;
+        }
+        .cards-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
         }
       }
     </style>
@@ -383,7 +412,7 @@
           </div>
         </div>
 
-        <!-- Strip 2 -->
+        <!-- Strip 2 (Middle) FIXED -->
         <div class="gallery__strip__wrapper">
           <div
             class="gallery__strip-inner strip-down"
@@ -447,36 +476,7 @@
               social awareness. Our project,
               <strong>“Redefining Womanhood,”</strong> challenges traditional
               stereotypes and celebrates the evolving strength, intelligence,
-              resilience, and diversity of women in modern society. Our exhibit
-              panel symbolizes transformation, just as discarded materials can
-              be reshaped into meaningful art, perspectives about women can also
-              be reconstructed into narratives of empowerment and equality. This
-              website serves as the digital extension of our exhibit, expanding
-              advocacy beyond the classroom. Beyond showcasing artwork and
-              ideas, we aim to spark conversations that question rigid gender
-              norms and inspire a reimagined understanding of femininity.
-              Through interactive storytelling, reflective exercises, and
-              multimedia presentations, visitors are invited to explore the many
-              dimensions of womanhood - its struggles, triumphs, and infinite
-              possibilities. By highlighting the voices of women from diverse
-              backgrounds, our project emphasizes that empowerment is inclusive,
-              intersectional, and ongoing. We believe that education is not just
-              about knowledge but also about fostering empathy, critical
-              thinking, and a commitment to social change. Each piece in our
-              exhibit is a testament to resilience, creativity, and the courage
-              to challenge expectations. Our vision extends beyond the classroom
-              and the exhibit space; we aspire to influence broader communities
-              by encouraging dialogue, challenging biases, and nurturing
-              leadership in young women. We invite everyone to engage with the
-              project, reflect on their own perceptions, and celebrate the
-              evolving narratives of womanhood. Ultimately,
-              <strong>“Redefining Womanhood”</strong> is more than an exhibit,
-              it is a movement, a call to honor women’s stories, nurture
-              potential, and embrace the transformative power of perspective. By
-              participating, you become part of a shared journey toward a
-              society where every woman can define her own narrative, where
-              empowerment is lived and experienced, and where creativity and
-              collaboration pave the way for meaningful change.
+              resilience, and diversity of women in modern society...
             </p>
           </div>
 
@@ -522,37 +522,13 @@
       />
     </a>
 
+    <!-- JS -->
     <script>
       const pageContent = document.querySelector(".page-content");
-
       window.addEventListener("load", () => {
         setTimeout(() => pageContent.classList.add("fade-in"), 50);
         document.body.classList.add("bg-fade-in");
-
-        // MOBILE: merge third strip into first two for seamless display
-        if (window.innerWidth <= 600) {
-          const strips = document.querySelectorAll(".gallery__strip-inner");
-          if (strips.length === 3) {
-            const thirdStripPhotos = Array.from(strips[2].children);
-            thirdStripPhotos.forEach((photo, index) => {
-              if (index % 2 === 0) strips[0].appendChild(photo);
-              else strips[1].appendChild(photo);
-            });
-            strips[2].parentElement.remove();
-          }
-
-          // Center starting position for seamless scroll
-          const newStrips = document.querySelectorAll(".gallery__strip-inner");
-          newStrips.forEach((strip) => {
-            const photos = strip.querySelectorAll(".photo");
-            const halfHeight = Array.from(photos)
-              .slice(0, photos.length / 2)
-              .reduce((sum, p) => sum + p.offsetHeight, 0);
-            strip.style.transform = `translateY(-${halfHeight}px)`;
-          });
-        }
       });
-
       function navigateTo(url) {
         pageContent.classList.remove("fade-in");
         pageContent.classList.add("fade-out");
