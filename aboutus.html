@@ -224,12 +224,13 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 90%;
-        max-width: 1000px;
+        width: 95%;
+        max-width: 1400px;
         display: grid;
         gap: 30px;
         padding: 20px;
         z-index: 5;
+        text-align: justify;
       }
       .main-card,
       .card {
@@ -305,7 +306,7 @@
         }
       }
 
-      /* ===== MOBILE FIX: seamless scroll with no gaps ===== */
+      /* ===== MOBILE SPECIFIC ===== */
       @media (max-width: 600px) {
         .gallery {
           flex-direction: row;
@@ -313,7 +314,7 @@
           gap: 0.3rem;
         }
         .gallery__strip__wrapper {
-          flex: 1 1 33%;
+          flex: 1 1 50%;
           overflow: hidden;
         }
         .gallery__strip-inner {
@@ -326,39 +327,6 @@
           height: 100%;
           flex-shrink: 0;
           object-fit: cover;
-        }
-
-        .content-overlay {
-          width: 90%;
-          max-width: 1000px;
-          padding: 15px;
-        }
-        .card {
-          padding: 20px 15px;
-        }
-
-        .strip-up {
-          animation-name: scroll-up-mobile;
-        }
-        .strip-down {
-          animation-name: scroll-down-mobile;
-        }
-
-        @keyframes scroll-up-mobile {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(-50%);
-          }
-        }
-        @keyframes scroll-down-mobile {
-          0% {
-            transform: translateY(-50%);
-          }
-          100% {
-            transform: translateY(0);
-          }
         }
       }
     </style>
@@ -476,19 +444,39 @@
             <p>
               We are SBECED 1D from Quezon City University, a collective of
               aspiring educators committed to creativity, collaboration, and
-              social awareness.
-              <br /><br />
-              Our project, <strong>“Redefining Womanhood,”</strong> challenges
-              traditional stereotypes and celebrates the evolving strength,
-              intelligence, resilience, and diversity of women in modern
-              society. <br /><br />
-              Our exhibit panel symbolizes transformation—just as discarded
-              materials can be reshaped into meaningful art, perspectives about
-              women can also be reconstructed into narratives of empowerment and
-              equality.
-              <br /><br />
-              This website serves as the digital extension of our exhibit,
-              expanding advocacy beyond the classroom.
+              social awareness. Our project,
+              <strong>“Redefining Womanhood,”</strong> challenges traditional
+              stereotypes and celebrates the evolving strength, intelligence,
+              resilience, and diversity of women in modern society. Our exhibit
+              panel symbolizes transformation, just as discarded materials can
+              be reshaped into meaningful art, perspectives about women can also
+              be reconstructed into narratives of empowerment and equality. This
+              website serves as the digital extension of our exhibit, expanding
+              advocacy beyond the classroom. Beyond showcasing artwork and
+              ideas, we aim to spark conversations that question rigid gender
+              norms and inspire a reimagined understanding of femininity.
+              Through interactive storytelling, reflective exercises, and
+              multimedia presentations, visitors are invited to explore the many
+              dimensions of womanhood - its struggles, triumphs, and infinite
+              possibilities. By highlighting the voices of women from diverse
+              backgrounds, our project emphasizes that empowerment is inclusive,
+              intersectional, and ongoing. We believe that education is not just
+              about knowledge but also about fostering empathy, critical
+              thinking, and a commitment to social change. Each piece in our
+              exhibit is a testament to resilience, creativity, and the courage
+              to challenge expectations. Our vision extends beyond the classroom
+              and the exhibit space; we aspire to influence broader communities
+              by encouraging dialogue, challenging biases, and nurturing
+              leadership in young women. We invite everyone to engage with the
+              project, reflect on their own perceptions, and celebrate the
+              evolving narratives of womanhood. Ultimately,
+              <strong>“Redefining Womanhood”</strong> is more than an exhibit,
+              it is a movement, a call to honor women’s stories, nurture
+              potential, and embrace the transformative power of perspective. By
+              participating, you become part of a shared journey toward a
+              society where every woman can define her own narrative, where
+              empowerment is lived and experienced, and where creativity and
+              collaboration pave the way for meaningful change.
             </p>
           </div>
 
@@ -541,21 +529,28 @@
         setTimeout(() => pageContent.classList.add("fade-in"), 50);
         document.body.classList.add("bg-fade-in");
 
-        // Fix mobile reload gaps
-        const strips = document.querySelectorAll(".gallery__strip-inner");
-        strips.forEach((strip) => {
-          const photos = strip.querySelectorAll(".photo");
-          if (photos.length > 0) {
+        // MOBILE: merge third strip into first two for seamless display
+        if (window.innerWidth <= 600) {
+          const strips = document.querySelectorAll(".gallery__strip-inner");
+          if (strips.length === 3) {
+            const thirdStripPhotos = Array.from(strips[2].children);
+            thirdStripPhotos.forEach((photo, index) => {
+              if (index % 2 === 0) strips[0].appendChild(photo);
+              else strips[1].appendChild(photo);
+            });
+            strips[2].parentElement.remove();
+          }
+
+          // Center starting position for seamless scroll
+          const newStrips = document.querySelectorAll(".gallery__strip-inner");
+          newStrips.forEach((strip) => {
+            const photos = strip.querySelectorAll(".photo");
             const halfHeight = Array.from(photos)
               .slice(0, photos.length / 2)
               .reduce((sum, p) => sum + p.offsetHeight, 0);
-            if (strip.classList.contains("strip-down")) {
-              strip.style.transform = `translateY(-${halfHeight}px)`;
-            } else {
-              strip.style.transform = `translateY(0)`;
-            }
-          }
-        });
+            strip.style.transform = `translateY(-${halfHeight}px)`;
+          });
+        }
       });
 
       function navigateTo(url) {
