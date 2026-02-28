@@ -24,6 +24,7 @@
         padding: 0;
         box-sizing: border-box;
       }
+
       body {
         font-family: var(--font-glacial);
         min-height: 100vh;
@@ -31,9 +32,11 @@
         position: relative;
         color: white;
       }
+
       body.bg-fade-in::after {
         opacity: 1;
       }
+
       body::before {
         content: "";
         position: fixed;
@@ -44,6 +47,7 @@
         animation: gradientBG 15s ease infinite;
         opacity: 0.45;
       }
+
       @keyframes gradientBG {
         0% {
           background-position: 0% 50%;
@@ -81,6 +85,7 @@
         backdrop-filter: blur(6px);
         z-index: 10;
       }
+
       .logo {
         cursor: pointer;
         font-family: var(--font-glacial) !important;
@@ -107,6 +112,7 @@
         color: var(--primary);
         transform: scale(1.05);
       }
+
       .nav-links {
         list-style: none;
         display: flex;
@@ -124,6 +130,7 @@
       .nav-links a:hover {
         color: var(--primary);
       }
+
       .hamburger {
         display: none;
         flex-direction: column;
@@ -181,6 +188,7 @@
       .strip-down .photo {
         flex-shrink: 0;
       }
+
       @keyframes scroll-up {
         0% {
           transform: translateY(0);
@@ -197,6 +205,7 @@
           transform: translateY(0);
         }
       }
+
       .photo__image img {
         width: 100%;
         display: block;
@@ -255,7 +264,7 @@
         margin-bottom: 10px;
       }
 
-      /* ===== FLOATING FACEBOOK ICON USING IMAGE ===== */
+      /* ===== FLOATING FACEBOOK ICON ===== */
       .floating-facebook {
         position: fixed;
         bottom: 25px;
@@ -297,28 +306,34 @@
         }
       }
       @media (max-width: 600px) {
+        /* Maintain strips side by side with no gaps, full height */
         .gallery {
-          flex-direction: column;
-          height: auto;
+          flex-direction: row;
+          height: 100vh;
+          gap: 0.3rem;
         }
         .gallery__strip__wrapper {
-          flex: 1 1 100%;
-          max-height: 250px;
+          flex: 1 1 33%;
+          max-height: 100vh;
+          overflow: hidden;
         }
         .gallery__strip-inner {
-          gap: 0.4rem;
+          gap: 0.3rem;
         }
         .photo__image img {
           height: 100%;
+          width: 100%;
           object-fit: cover;
         }
         .content-overlay {
-          position: relative;
-          transform: none;
-          top: auto;
-          left: auto;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 90%;
+          max-width: 1000px;
           padding: 15px;
-          margin-bottom: 30px;
+          z-index: 5;
         }
         .card {
           padding: 20px 15px;
@@ -345,9 +360,7 @@
             document.querySelector('.nav-links').classList.toggle('active')
           "
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </div>
       </nav>
 
@@ -482,7 +495,7 @@
       </div>
     </div>
 
-    <!-- FLOATING FACEBOOK ICON USING IMAGE -->
+    <!-- FLOATING FACEBOOK ICON -->
     <a
       href="https://www.facebook.com/profile.php?id=61588227307015&rdid=2q7Ft7w28RMd5DFZ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BvNcnJ1nR#"
       target="_blank"
@@ -500,6 +513,7 @@
         setTimeout(() => pageContent.classList.add("fade-in"), 50);
         document.body.classList.add("bg-fade-in");
       });
+
       function navigateTo(url) {
         pageContent.classList.remove("fade-in");
         pageContent.classList.add("fade-out");
