@@ -370,6 +370,25 @@
           font-size: 1.4rem; /* mobile-friendly, prevents overflow */
         }
       }
+
+      @media only screen and (max-width: 420px) {
+        .section-block h1,
+        .section-block h2 {
+          flex-wrap: wrap; /* allow content to wrap instead of overflowing */
+          gap: 6px; /* keep spacing between icon, text, and subtitle */
+        }
+
+        .section-block h1 i.icon,
+        .section-block h2 i.icon {
+          font-size: 1.2rem; /* shrink icon slightly */
+          margin-bottom: 4px; /* give a tiny margin if it wraps */
+        }
+
+        .section-block span.subtitle {
+          display: block; /* force subtitle to a new line */
+          margin-top: 2px; /* small spacing */
+        }
+      }
     </style>
   </head>
 
