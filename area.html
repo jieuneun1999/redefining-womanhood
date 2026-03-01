@@ -121,7 +121,7 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
       }
 
       .area-container h1,
@@ -143,12 +143,38 @@
       .area-container p {
         font-size: 1.15rem;
         margin-bottom: 25px;
-        max-width: 850px;
+        max-width: 1400px;
         line-height: 1.55;
       }
       .area-container h2 {
         font-size: 1.6rem;
         margin-bottom: 25px;
+      }
+
+      /* ===== Glass Sections ===== */
+      .glass-section {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto 40px auto;
+        padding: 30px 30px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease,
+          background 0.3s ease;
+        display: flex; /* Enable flexbox */
+        flex-direction: column; /* Stack children vertically */
+        justify-content: center; /* Center vertically if needed */
+        align-items: center; /* Center horizontally */
+        text-align: center; /* Center text inside children */
+      }
+      .glass-section:hover {
+        transform: scale(1.02);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.12);
       }
 
       /* Grid */
@@ -167,7 +193,6 @@
         cursor: pointer;
         border-radius: 10px;
         overflow: hidden;
-
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -301,40 +326,46 @@
     </nav>
 
     <div class="area-container">
-      <h1>Modern women are redefining global society</h1>
-      <p>
-        Modern women are redefining global society by balancing unprecedented
-        professional leadership and economic independence with the enduring
-        challenges of systemic inequality. Today’s landscape is defined by this
-        shift: a move from restricted domestic roles to a diverse,
-        self-determined presence in every sector of human endeavor.
-      </p>
-      <h2>If so, what area are you interested?</h2>
+      <!-- Intro Glass Section -->
+      <div class="glass-section intro-section">
+        <h1>Modern women are redefining global society</h1>
+        <p>
+          Modern women are redefining global society by balancing unprecedented
+          professional leadership and economic independence with the enduring
+          challenges of systemic inequality. Today’s landscape is defined by
+          this shift: a move from restricted domestic roles to a diverse,
+          self-determined presence in every sector of human endeavor.
+        </p>
+        <h2>If so, what area are you interested?</h2>
+      </div>
 
-      <div class="area-grid">
-        <div class="area-card">
-          <a class="image-wrapper" href="politics.html">
-            <img src="image/img1.jpg" alt="Politics" />
-          </a>
-          <a class="area-card-title" href="politics.html">POLITICS</a>
-        </div>
-        <div class="area-card">
-          <a class="image-wrapper" href="economics.html">
-            <img src="image/img2.jpg" alt="Economics" />
-          </a>
-          <a class="area-card-title" href="economics.html">ECONOMICS</a>
-        </div>
-        <div class="area-card">
-          <a class="image-wrapper" href="education.html">
-            <img src="image/img3.jpg" alt="Education" />
-          </a>
-          <a class="area-card-title" href="education.html">EDUCATION</a>
-        </div>
-        <div class="area-card">
-          <a class="image-wrapper" href="work.html">
-            <img src="image/img4.jpg" alt="Work" />
-          </a>
-          <a class="area-card-title" href="work.html">WORK</a>
+      <!-- Grid Glass Section -->
+      <div class="glass-section grid-section">
+        <div class="area-grid">
+          <div class="area-card">
+            <a class="image-wrapper" href="politics.html">
+              <img src="image/img1.jpg" alt="Politics" />
+            </a>
+            <a class="area-card-title" href="politics.html">POLITICS</a>
+          </div>
+          <div class="area-card">
+            <a class="image-wrapper" href="economics.html">
+              <img src="image/img2.jpg" alt="Economics" />
+            </a>
+            <a class="area-card-title" href="economics.html">ECONOMICS</a>
+          </div>
+          <div class="area-card">
+            <a class="image-wrapper" href="education.html">
+              <img src="image/img3.jpg" alt="Education" />
+            </a>
+            <a class="area-card-title" href="education.html">EDUCATION</a>
+          </div>
+          <div class="area-card">
+            <a class="image-wrapper" href="work.html">
+              <img src="image/img4.jpg" alt="Work" />
+            </a>
+            <a class="area-card-title" href="work.html">WORK</a>
+          </div>
         </div>
       </div>
     </div>

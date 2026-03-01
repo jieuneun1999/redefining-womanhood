@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Contemporary Woman</title>
+
+    <!-- Fonts & Font Awesome -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --primary-pink: #ff5a87;
+        --font-glacial: "Glacial Indifference", sans-serif;
+        --glass-bg: rgba(0, 0, 0, 0.45);
+        --card-shadow: rgba(0, 0, 0, 0.3);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-glacial);
+        color: white;
+        min-height: 100vh;
+        background: linear-gradient(120deg, #ff5a87, #ff7acc, #ffb6c1, #ffdde1);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+        overflow-x: hidden;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      body.fade-in {
+        opacity: 1;
+      }
+      body.fade-out {
+        opacity: 0;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 10%;
+        font-weight: 900;
+        font-size: 1.8rem;
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(6px);
+        z-index: 10;
+      }
+
+      .logo {
+        cursor: pointer;
+        color: white;
+        line-height: 1.2;
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease;
+        font-weight: bold;
+      }
+
+      .logo .redefining {
+        display: block;
+        font-size: 1.6rem;
+        position: relative;
+        left: 0.58em;
+      }
+
+      .logo .womanhood {
+        display: block;
+        font-size: 2.8rem;
+      }
+
+      .logo:hover {
+        color: var(--primary-pink);
+        transform: scale(1.05);
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+      }
+
+      .nav-links li {
+        margin-left: 25px;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-pink);
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 15px;
+        border-radius: 8px;
+        gap: 15px;
+      }
+
+      .intro-section {
+        text-align: center;
+        margin: 40px 0 20px;
+        font-size: 2.5rem;
+        font-weight: bold;
+        transition: 0.3s ease;
+      }
+
+      .intro-section:hover {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+      }
+
+      .content-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+
+      .section-block {
+        background: var(--glass-bg);
+        border-radius: 15px;
+        padding: 40px 30px;
+        margin-bottom: 60px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: 0.6s ease;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 32px var(--card-shadow);
+      }
+
+      .section-block.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-block:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+      }
+
+      .section-block h1,
+      .section-block h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 2.2rem;
+        color: var(--primary-pink);
+        transition: 0.3s ease;
+      }
+
+      .section-block h1:hover,
+      .section-block h2:hover {
+        filter: brightness(1.2);
+      }
+
+      .section-block span.subtitle {
+        font-size: 1.1rem;
+        color: #ffffffaa;
+        font-weight: 400;
+      }
+
+      .section-block p {
+        font-size: 1.15rem;
+        line-height: 1.75;
+        margin-bottom: 18px;
+        text-align: justify;
+      }
+
+      .stat-highlight {
+        display: inline-block;
+        margin: 25px 0;
+        padding: 12px 22px;
+        border: 2px solid white;
+        font-weight: 900;
+        font-size: 1.4rem;
+        border-radius: 8px;
+      }
+
+      .proceed-btn {
+        display: block;
+        margin: 60px auto 80px;
+        background: var(--glass-bg);
+        border: 2px solid white;
+        border-radius: 12px;
+        padding: 14px 36px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s ease;
+        backdrop-filter: blur(8px);
+      }
+
+      .proceed-btn:hover {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+
+      .introduction {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo" onclick="navigateTo('index.html')">
+        <span class="redefining">Redefining</span>
+        <span class="womanhood">Womanhood</span>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+      </ul>
+
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <div class="intro-section">INTRODUCTION</div>
+
+    <div class="content-container">
+      <!-- FULL ORIGINAL CONTENT RESTORED BELOW -->
+
+      <div class="section-block">
+        <h1>
+          <i class="fas fa-venus icon"></i> The Contemporary Woman
+          <span class="subtitle">Historical & Societal Context</span>
+        </h1>
+        <p>
+          The contemporary woman stands at a pivotal intersection of historical
+          progress and ongoing societal transformation. No longer defined by a
+          singular narrative of domesticity or professional limitation because
+          now, she is characterized by hybridity, the simultaneous navigation of
+          career, personal agency, and societal contribution. They navigate a
+          complex, multifaceted reality defined by unprecedented opportunities
+          alongside persistent systemic challenges.
+        </p>
+      </div>
+
+      <div class="section-block">
+        <h2>
+          <i class="fas fa-graduation-cap icon"></i> Education & Economic
+          Transition <span class="subtitle">Academic & Workforce Changes</span>
+        </h2>
+        <p>
+          Research indicates that the modern female experience has been defined
+          by a transition from exclusion and domestic confinement to an era of
+          institutionalized participation. In education, global parity has
+          largely been achieved in terms of school enrollment, with women now
+          outperforming men in secondary and tertiary graduation rates in many
+          regions.
+        </p>
+        <p>
+          However, this academic success has not yet translated into full
+          economic equality. While women’s labor force participation has risen
+          significantly since the mid-20th century that is driven by legal
+          reforms like the right to own credit and the removal of marriage bars.
+        </p>
+        <p>
+          This is exacerbated by the fact that women still perform a
+          disproportionate amount of unpaid care work, which limits their
+          mobility into high-level executive positions and technical fields like
+          STEM.
+        </p>
+      </div>
+
+      <div class="section-block">
+        <h2>
+          <i class="fas fa-landmark icon"></i> Political Representation
+          <span class="subtitle">Leadership & Governance</span>
+        </h2>
+        <div class="stat-highlight">
+          27% Global Parliamentary Representation (2026)
+        </div>
+        <p>
+          In the realm of politics, the 21st century has seen a historic surge
+          in female representation, yet parity remains a distant target.
+          Although the share of women in national parliaments has nearly doubled
+          since the 1990s reaching approximately 27% globally by 2026, women
+          continue to be underrepresented in executive "Head of State" roles,
+          which are currently held by fewer than 30 women worldwide.
+        </p>
+        <p>
+          This stagnant political empowerment is often attributed to systemic
+          barriers, including gender-based violence in political spaces and
+          traditional norms that favor male leadership.
+        </p>
+        <p>
+          Despite these hurdles, the current landscape is marked by a shift
+          toward transformative leadership, where female-led governance has been
+          linked to increased investment in social infrastructure, such as clean
+          water projects and parental leave policies, signaling that women’s
+          presence in decision-making bodies is no longer just a matter of
+          representation, but a driver of broader societal progress.
+        </p>
+      </div>
+
+      <div class="section-block">
+        <h2>
+          <i class="fas fa-network-wired icon"></i> Identity & Digital Agency
+          <span class="subtitle">Autonomy & Influence</span>
+        </h2>
+        <p>
+          Furthermore, the contemporary woman is characterized by a commitment
+          to intentional living and value-driven choices. She is leveraging
+          digital connectivity to redefine traditional gender roles, demanding
+          equity in leadership, and prioritizing mental and physical well-being.
+        </p>
+        <p>
+          Far from being a monolith, her identity is constructed through a
+          diverse tapestry of cultural, socioeconomic, and personal experiences,
+          yet united by a collective drive toward autonomy and systemic
+          influence.
+        </p>
+        <p>
+          This era is characterized by a collective push for rights, justice,
+          and action, emphasizing not just participation in the workforce but
+          also the necessity of dismantling ingrained biases to achieve true
+          gender equality.
+        </p>
+      </div>
+    </div>
+
+    <div class="introduction">
+      <button class="proceed-btn" onclick="navigateTo('index.html')">
+        Back
+      </button>
+      <button class="proceed-btn" onclick="navigateTo('area.html')">
+        Proceed
+      </button>
+    </div>
+
+    <script>
+      const hamburger = document.querySelector(".hamburger");
+      const navLinks = document.querySelector(".nav-links");
+
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        hamburger.classList.toggle("active");
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("fade-in");
+        const sections = document.querySelectorAll(".section-block");
+        sections.forEach((section, index) => {
+          setTimeout(() => section.classList.add("visible"), 200 + index * 250);
+        });
+      });
+
+      function navigateTo(url) {
+        document.body.classList.remove("fade-in");
+        document.body.classList.add("fade-out");
+        setTimeout(() => {
+          window.location.href = url;
+        }, 600);
+      }
+    </script>
+  </body>
+</html>

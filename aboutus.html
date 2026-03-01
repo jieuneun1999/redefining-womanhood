@@ -288,6 +288,32 @@
         transform: scale(1.2);
       }
 
+      /* ===== GLASS BUTTON ===== */
+      .btn-container {
+        display: flex;
+        justify-content: center;
+        margin: 40px 0 20px 0;
+      }
+
+      .glass-btn {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: white;
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .glass-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.6);
+        transform: scale(1.05);
+      }
+
       /* ===== RESPONSIVE ===== */
       @media (max-width: 992px) {
         .gallery__strip__wrapper {
@@ -357,6 +383,12 @@
           grid-template-columns: 1fr;
           gap: 12px;
         }
+      }
+
+      .lastcontainer {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
       }
     </style>
   </head>
@@ -527,6 +559,23 @@
                 Excellence goes beyond grades—thinking critically and leading
                 with purpose.
               </p>
+            </div>
+          </div>
+
+          <div class="lastcontainer">
+            <!-- GLASS BUTTON -->
+            <div class="btn-container">
+              <button
+                class="glass-btn"
+                onclick="navigateTo('introduction.html')"
+              >
+                INTRODUCTION
+              </button>
+            </div>
+            <div class="btn-container">
+              <button class="glass-btn" onclick="navigateTo('conclusion.html')">
+                CONCLUSION
+              </button>
             </div>
           </div>
         </div>

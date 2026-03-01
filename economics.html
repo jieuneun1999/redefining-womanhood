@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Politics</title>
+    <title>Economics</title>
     <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700;900&family=Libre+Baskerville:wght@400;700&display=swap"
@@ -23,7 +23,6 @@
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
         font-family: var(--font-glacial);
         min-height: 100vh;
@@ -32,7 +31,7 @@
         color: black;
       }
 
-      /* Background image wrapper for fade */
+      /* Background fade */
       body::after {
         content: "";
         position: fixed;
@@ -45,11 +44,9 @@
         opacity: 0;
         transition: opacity 1.2s ease-in-out;
       }
-
       body.bg-fade-in::after {
         opacity: 1;
       }
-
       body::before {
         content: "";
         position: fixed;
@@ -60,7 +57,6 @@
         animation: gradientBG 15s ease infinite;
         opacity: 0.45;
       }
-
       @keyframes gradientBG {
         0% {
           background-position: 0% 50%;
@@ -99,7 +95,6 @@
         backdrop-filter: blur(6px);
         z-index: 10;
       }
-
       .logo {
         cursor: pointer;
         font-family: var(--font-glacial) !important;
@@ -169,7 +164,6 @@
         transform: rotate(-45deg) translate(5px, -5px);
       }
 
-      /* Active nav for mobile */
       .nav-links.active {
         display: flex;
         flex-direction: column;
@@ -184,7 +178,7 @@
 
       /* ===== CONTENT ===== */
       .content-container {
-        max-width: 1200px;
+        max-width: 1600px;
         margin: 60px auto 100px;
         padding: 0 20px;
         line-height: 1.85;
@@ -206,14 +200,14 @@
 
       p {
         font-family: var(--font-glacial);
-        font-size: 1.3rem;
+        font-size: 1rem;
         margin-bottom: 28px;
         text-align: justify;
         color: white;
         font-weight: bold;
       }
 
-      /* ===== UPDATED BUTTON STYLE LIKE AREA PAGE ===== */
+      /* Buttons */
       .gradient-button {
         display: inline-block;
         margin: 20px 10px 0;
@@ -246,7 +240,38 @@
         -webkit-text-stroke: 1px black;
       }
 
-      /* ===== Responsive ===== */
+      /* ===== Section/Card Layout ===== */
+      .section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+        align-items: center;
+        margin-bottom: 60px;
+        background: rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        padding: 25px;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .section:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
+      }
+      .section img {
+        width: 100%;
+        border-radius: 12px;
+      }
+      .section.text-first {
+        direction: rtl;
+      }
+      .section.text-first > * {
+        direction: ltr;
+      }
+
+      /* Responsive */
       @media (max-width: 768px) {
         .hamburger {
           display: flex;
@@ -255,7 +280,6 @@
           display: none;
         }
       }
-
       @media (max-width: 992px) {
         .gradient-button {
           font-size: 1.35rem;
@@ -282,84 +306,112 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About Us</a></li>
         </ul>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <div class="hamburger"><span></span><span></span><span></span></div>
       </nav>
 
       <div class="content-container">
         <h1 class="gradient-text">ECONOMICS</h1>
-        <p>
-          Historically, the Filipina held a central role as an economic manager
-          in the pre-colonial era, exercising significant authority in trade,
-          finance, and agricultural management, underpinned by the legal right
-          to own and inherit property independently. This egalitarian status
-          shifted under Spanish colonial rule, where patriarchal legal
-          frameworks like patria potestas restricted women’s formal rights,
-          effectively pushing them into the informal economy (Herrero, 2019).
-          Despite these institutional barriers, Filipinas demonstrated
-          remarkable resilience by dominating the retail landscape through
-          "sari-sari" stores and market stalls, while simultaneously driving the
-          nation's cottage industries and providing a critical labor force for
-          the burgeoning textile and tobacco sectors. Currently, The modern
-          Filipina’s economic contribution has expanded globally, with Overseas
-          Filipino Workers (OFWs) acting as a cornerstone of the Philippine
-          economy. Historically the economic managers of the household, modern
-          women now serve as the primary breadwinners for millions of families
-          through international labor migration. Data from the 2023 Survey of
-          Filipino Overseas Workers show that of the estimated 2.16 million
-          Filipinos who worked abroad between April and September 2023, 1.20
-          million, or 55.6 percent, were women (Philippine Commission on Women,
-          2023). Women are the primary drivers of personal remittances, which
-          collectively account for nearly 9% to 10% of the Philippines' GDP.
-          Their earnings sustain national consumption, fund education for the
-          next generation, and stabilize the country’s foreign exchange
-          reserves. Even in domestic work, their labor allows for the
-          functioning of economies in the Middle East, Europe, and neighboring
-          Asian countries. Beyond money, returning Filipinas bring back social
-          remittances wherein new skills, global perspectives and
-          entrepreneurial mindsets that fuel local businesses and community
-          development.
-        </p>
-        <p>
-          Despite these contributions, the report of Overcoming the Barriers to
-          Women’s Economic Empowerment in the Philippines identifies critical
-          obstacles hindering full labor market integration, including a
-          concentration in low-skill roles, significant wage disparities, and
-          the disproportionate burden of unpaid domestic labor (Buchhave &
-          Belghith, 2024). According to Women and Labor Market Participation,
-          social norms and child-rearing responsibilities further reduce women's
-          workforce participation by up to 22 percentage points, leaving the
-          Philippines with the lowest female labor force participation rate
-          among the ASEAN-6 from 2012–2019. To counter these systemic issues,
-          the government has launched the Trabaho Para sa Bayan (TPB) Plan
-          2025–2034. In collaboration with partners like the World Bank and the
-          Australian Government’s Investing in Women initiative, this ten-year
-          framework seeks to dismantle gendered barriers, provide childcare
-          alternatives, and foster a more inclusive labor market that ensures
-          equitable compensation and opportunity for all working-age Filipinos
-          (Duran-Pascual, 2025).The Philippines currently leads Asia in gender
-          parity, sustaining roughly 80% parity in labor indicators, with wage
-          equality and estimated earned income driving its sub-index to 79%.
-          These national gains reflect systematic efforts to increase women’s
-          access to decent work, support female entrepreneurs, and advocate for
-          equitable pay across both public and private sectors. A localized
-          manifestation of this progress is evident in the Quezon City Gender
-          and Development Council Office, which, under the leadership of Mayor
-          Josefina Belmonte, has been recognized by the Philippine Commission on
-          Women for implementing comprehensive programs like the Local Learning
-          Hub, Social Hygiene Clinics, and a Protection Centre. A cornerstone of
-          these efforts is the "No Woman Left Behind" program, a Quezon City LGU
-          initiative that provides female Persons Deprived of Liberty (PDLs)
-          with essential access to healthcare, education, livelihood
-          opportunities, and rehabilitation. By prioritizing the unique rights
-          of female PDLs and strengthening community support systems, the
-          program emphasizes gender equality and prepares these women for
-          successful reintegration as self-sufficient, productive members of
-          society, ultimately fostering a culture of acceptance and inclusion.
-        </p>
+
+        <!-- Section 1 -->
+        <div class="section">
+          <img
+            src="https://preview.redd.it/our-27-year-old-sari-sari-store-v0-luhiuueoi3ya1.jpg?width=640&crop=smart&auto=webp&s=50f84369846f4e22936c67766153465da3ac4f4d"
+            alt="Economics Image 1"
+            loading="lazy"
+          />
+          <p>
+            Historically, the Filipina held a central role as an economic
+            manager in the pre-colonial era, exercising significant authority in
+            trade, finance, and agricultural management, underpinned by the
+            legal right to own and inherit property independently. This
+            egalitarian status shifted under Spanish colonial rule, where
+            patriarchal legal frameworks like patria potestas restricted women’s
+            formal rights, effectively pushing them into the informal economy
+            (Herrero, 2019). Despite these institutional barriers, Filipinas
+            demonstrated remarkable resilience by dominating the retail
+            landscape through "sari-sari" stores and market stalls, while
+            simultaneously driving the nation's cottage industries and providing
+            a critical labor force for the burgeoning textile and tobacco
+            sectors. Currently, The modern Filipina’s economic contribution has
+            expanded globally, with Overseas Filipino Workers (OFWs) acting as a
+            cornerstone of the Philippine economy. Historically the economic
+            managers of the household, modern women now serve as the primary
+            breadwinners for millions of families through international labor
+            migration.
+          </p>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section text-first">
+          <img
+            src="https://www.rappler.com/tachyon/2021/12/ofw-arrival-christmas-maia-december-1-2021-003.jpg"
+            alt="Economics Image 2"
+            loading="lazy"
+          />
+          <p>
+            Data from the 2023 Survey of Filipino Overseas Workers show that of
+            the estimated 2.16 million Filipinos who worked abroad between April
+            and September 2023, 1.20 million, or 55.6 percent, were women
+            (Philippine Commission on Women, 2023). Women are the primary
+            drivers of personal remittances, which collectively account for
+            nearly 9% to 10% of the Philippines' GDP. Their earnings sustain
+            national consumption, fund education for the next generation, and
+            stabilize the country’s foreign exchange reserves. Even in domestic
+            work, their labor allows for the functioning of economies in the
+            Middle East, Europe, and neighboring Asian countries. Beyond money,
+            returning Filipinas bring back social remittances wherein new
+            skills, global perspectives and entrepreneurial mindsets that fuel
+            local businesses and community development.
+          </p>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section">
+          <img
+            src="image/workshop.jpg"
+            alt="Economics Image 3"
+            loading="lazy"
+          />
+          <p>
+            Despite these contributions, the report of Overcoming the Barriers
+            to Women’s Economic Empowerment in the Philippines identifies
+            critical obstacles hindering full labor market integration,
+            including a concentration in low-skill roles, significant wage
+            disparities, and the disproportionate burden of unpaid domestic
+            labor (Buchhave & Belghith, 2024). According to Women and Labor
+            Market Participation, social norms and child-rearing
+            responsibilities further reduce women's workforce participation by
+            up to 22 percentage points, leaving the Philippines with the lowest
+            female labor force participation rate among the ASEAN-6 from
+            2012–2019. To counter these systemic issues, the government has
+            launched the Trabaho Para sa Bayan (TPB) Plan 2025–2034. In
+            collaboration with partners like the World Bank and the Australian
+            Government’s Investing in Women initiative, this ten-year framework
+            seeks to dismantle gendered barriers, provide childcare
+            alternatives, and foster a more inclusive labor market that ensures
+            equitable compensation and opportunity for all working-age Filipinos
+            (Duran-Pascual, 2025).The Philippines currently leads Asia in gender
+            parity, sustaining roughly 80% parity in labor indicators, with wage
+            equality and estimated earned income driving its sub-index to 79%.
+            These national gains reflect systematic efforts to increase women’s
+            access to decent work, support female entrepreneurs, and advocate
+            for equitable pay across both public and private sectors. A
+            localized manifestation of this progress is evident in the Quezon
+            City Gender and Development Council Office, which, under the
+            leadership of Mayor Josefina Belmonte, has been recognized by the
+            Philippine Commission on Women for implementing comprehensive
+            programs like the Local Learning Hub, Social Hygiene Clinics, and a
+            Protection Centre. A cornerstone of these efforts is the "No Woman
+            Left Behind" program, a Quezon City LGU initiative that provides
+            female Persons Deprived of Liberty (PDLs) with essential access to
+            healthcare, education, livelihood opportunities, and rehabilitation.
+            By prioritizing the unique rights of female PDLs and strengthening
+            community support systems, the program emphasizes gender equality
+            and prepares these women for successful reintegration as
+            self-sufficient, productive members of society, ultimately fostering
+            a culture of acceptance and inclusion.
+          </p>
+        </div>
 
         <a href="area.html" class="gradient-button">Back to Other Areas</a>
         <a href="video.html" class="gradient-button"

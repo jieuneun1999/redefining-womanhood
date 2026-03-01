@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Politics</title>
+    <!-- Preload background -->
+    <link rel="preload" as="image" href="image/politics.jpg" />
     <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700;900&family=Libre+Baskerville:wght@400;700&display=swap"
@@ -162,7 +164,6 @@
         border-radius: 2px;
         transition: all 0.3s ease;
       }
-
       .nav-links.mobile {
         display: none;
         flex-direction: column;
@@ -180,7 +181,7 @@
 
       /* ===== CONTENT ===== */
       .content-container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 60px auto 100px;
         padding: 0 20px;
         line-height: 1.85;
@@ -243,6 +244,43 @@
         -webkit-text-stroke: 1px black;
       }
 
+      /* ===== Section Grid Layout with Glass Effect ===== */
+      .section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 40px;
+        align-items: center;
+        margin-bottom: 60px;
+
+        /* GLASS EFFECT */
+        background: rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        padding: 25px;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      /* Hover lift for glass sections */
+      .section:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
+      }
+
+      .section img {
+        width: 100%;
+        border-radius: 12px;
+      }
+
+      .section.text-first {
+        direction: rtl;
+      }
+      .section.text-first > * {
+        direction: ltr;
+      }
+
       /* ===== Responsive ===== */
       @media (max-width: 992px) {
         .hamburger {
@@ -297,85 +335,51 @@
 
       <div class="content-container">
         <h1 class="gradient-text">POLITICS</h1>
-        <p>
-          Historically in the Philippine context, the political arena has been a
-          male dominated space but the landscape is shifting as more women take
-          on leadership roles globally. While progress is steady, it is often
-          met with systemic hurdles ranging from cultural biases to a lack of
-          access to campaign funding. Despite these challenges, female
-          representation is no longer just about "having a seat at the table" it
-          is about fundamentally changing the conversation. In the Philippines,
-          the political journey of women is a narrative of reclaimed power
-          moving from pre-colonial equality to a century-long struggle for the
-          vote, and eventually to the highest office in the land. Filipino women
-          evolved from high-status pre-colonial leaders and Babaylans to legal
-          minors under three centuries of restrictive Spanish patriarchal rule.
-          Despite being relegated to the domestic sphere, they played critical
-          roles in the Philippine Revolution by using their homes for espionage
-          and logistics. This spirit of resistance eventually shifted toward
-          organized activism in the early 1900s through groups like the
-          Asociacion Femenista Filipina and Asociacion Femenista Ilongga. Their
-          decades of lobbying culminated in the 1937 plebiscite, where women
-          shattered a constitutional requirement by gathering over 447,000 "Yes"
-          votes, officially securing their right to vote and making the
-          Philippines a pioneer for women's suffrage in Asia.
-        </p>
-        <p>
-          Following the approval of Act No. 4112 by President Manuel L. Quezon,
-          Filipino women gained the right to vote and hold office, leading to a
-          growing presence in national leadership. The Philippines notably
-          produced Asia’s first female president, Corazon C. Aquino and followed
-          by Gloria Macapagal-Arroyo, alongside influential legislators such as
-          Miriam Defensor-Santiago, Pia Cayetano, and Loren Legarda.
-          Additionally, the Party-list System Act has amplified women's
-          advocacy, with groups like Gabriela consistently securing
-          congressional seats to address gender-specific needs. From 1998 to
-          2016, the percentage of women elected into public office ranged from
-          16.1 percent to 21.44 percent, reaching its peak in the 2016
-          elections. In the 2019 National and Local Elections, only 20.16
-          percent (8,782) of the candidates were female. The Magna Carta of
-          Women (Republic Act 9710) provides under Section 11 the undertaking of
-          temporary special measures to accelerate the participation and
-          equitable representation of women in all spheres of society
-          particularly in the decision-making and policy-making processes in
-          government and private entities to fully realize their role as agents
-          and beneficiaries of development. It mandates the adoption of
-          temporary special measures for the incremental increase of women in
-          third level positions in the civil service until a fifty-fifty (50-50)
-          gender balance is achieved and at least 40% women in developmental
-          councils. Several studies presented that women in key positions in
-          government have shown that they are as capable and effective as their
-          male counterparts in assuming leadership and decision-making roles.
-          Promoting women’s representation in elected bodies allows them to
-          contribute to development and nation-building as well as ensure that
-          governance leads to equal access to resources and to development
-          results and outcomes for both women and men. It is also indicated that
-          women as legislators represent not only for women but for the
-          improvement of policy to be responsive especially to the marginalized
-          and less privileged individual. Thus, elected women in office
-          alleviate the quality of life and reflect the priorities for all the
-          families, women, and ethnic and racial minorities (Volden , Wiseman, &
-          Wittmer, 2010). Rosenthal (2001) explained that women function much
-          better than men in terms of leadership, conflict resolution styles,
-          participation, and collaboration and women are known to be less
-          hierarchical in work. Thus, women always proved to stay calm even in a
-          very difficult situation and exceptionally listen attentively to the
-          call of peace making. In addition to that, the Institute for Inclusive
-          Security (2009) indicates women being part of peace processes can
-          probably increase the level of peace stability, lessen corruption, and
-          exemplify health care and education in the community.
-        </p>
-        <p>
-          That is why the necessity in understanding women is utmost significant
-          especially in forecasting the trend in the participation of women in
-          politics since women play an important role in nation building. Hence,
-          the participation of women in politics can’t be taken for granted
-          since year by year the augmentation is conspicuous. Using the Bass
-          Diffusion model as the representation of diffusive adoption, the study
-          then predicts the saturation of women participation in politics with
-          respect to time and provides a basis in program implementation related
-          to gender equality and/or women empowerment.
-        </p>
+
+        <!-- Section 1: Image left -->
+        <div class="section">
+          <img
+            src="https://eastasiaforum.org/wp-content/uploads/2015/11/20040525000012381798-original-1024x682-c-default.webp"
+            alt="Politics Image 1"
+            loading="lazy"
+          />
+          <p>
+            Historically in the Philippine context, the political arena has been
+            a male dominated space but the landscape is shifting as more women
+            take on leadership roles globally. While progress is steady, it is
+            often met with systemic hurdles ranging from cultural biases to a
+            lack of access to campaign funding.
+          </p>
+        </div>
+
+        <!-- Section 2: Text left -->
+        <div class="section text-first">
+          <img src="image/vote.jpg" alt="Politics Image 2" loading="lazy" />
+          <p>
+            Following the approval of Act No. 4112 by President Manuel L.
+            Quezon, Filipino women gained the right to vote and hold office,
+            leading to a growing presence in national leadership. The
+            Philippines notably produced Asia’s first female president, Corazon
+            C. Aquino and followed by Gloria Macapagal-Arroyo, alongside
+            influential legislators such as Miriam Defensor-Santiago, Pia
+            Cayetano, and Loren Legarda.
+          </p>
+        </div>
+
+        <!-- Section 3: Image left -->
+        <div class="section">
+          <img src="image/leni.jpg" alt="Politics Image 3" loading="lazy" />
+          <p>
+            That is why the necessity in understanding women is utmost
+            significant especially in forecasting the trend in the participation
+            of women in politics since women play an important role in nation
+            building. Using the Bass Diffusion model as the representation of
+            diffusive adoption, the study then predicts the saturation of women
+            participation in politics with respect to time and provides a basis
+            in program implementation related to gender equality and/or women
+            empowerment.
+          </p>
+        </div>
 
         <a href="area.html" class="gradient-button">Back to Other Areas</a>
         <a href="video.html" class="gradient-button"
@@ -390,8 +394,8 @@
       const hamburger = document.querySelector(".hamburger");
       const mobileMenu = document.querySelector(".nav-links.mobile");
 
-      window.addEventListener("load", () => {
-        setTimeout(() => pageContent.classList.add("fade-in"), 50);
+      document.addEventListener("DOMContentLoaded", () => {
+        pageContent.classList.add("fade-in");
         document.body.classList.add("bg-fade-in");
       });
 
