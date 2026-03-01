@@ -350,6 +350,26 @@
           align-items: center;
         }
       }
+
+      i.icon {
+        display: inline-block; /* keeps icon treated as part of text */
+        max-width: 100%; /* prevents it from overflowing heading */
+        vertical-align: middle; /* aligns nicely with heading text */
+        font-size: 2.2rem; /* default desktop size */
+        flex-shrink: 0; /* prevents shrinking inside flex if used */
+      }
+
+      @media only screen and (max-width: 768px) {
+        i.icon {
+          font-size: 1.8rem; /* tablet-friendly */
+        }
+      }
+
+      @media only screen and (max-width: 420px) {
+        i.icon {
+          font-size: 1.4rem; /* mobile-friendly, prevents overflow */
+        }
+      }
     </style>
   </head>
 
