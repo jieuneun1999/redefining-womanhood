@@ -162,6 +162,7 @@
         overflow: hidden;
         position: relative;
       }
+
       .gallery__strip__wrapper {
         flex: 0 0 33%;
         display: flex;
@@ -169,6 +170,7 @@
         overflow: hidden;
         position: relative;
       }
+
       .gallery__strip-inner {
         display: flex;
         flex-direction: column;
@@ -193,8 +195,6 @@
           transform: translateY(-50%);
         }
       }
-
-      /* Fixed downward strip starting higher to avoid gaps */
       @keyframes scroll-down-fix {
         0% {
           transform: translateY(-10%);
@@ -222,7 +222,7 @@
         filter: grayscale(0);
       }
 
-      /* ===== CONTENT ===== */
+      /* ===== CONTENT OVERLAY ===== */
       .content-overlay {
         position: absolute;
         top: 50%;
@@ -236,6 +236,7 @@
         z-index: 5;
         text-align: justify;
       }
+
       .main-card,
       .card {
         background: rgba(20, 20, 20, 0.75);
@@ -247,6 +248,7 @@
         margin-bottom: 20px;
         font-size: 2rem;
       }
+
       .cards-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -294,7 +296,6 @@
         justify-content: center;
         margin: 40px 0 20px 0;
       }
-
       .glass-btn {
         padding: 15px 30px;
         font-size: 1.1rem;
@@ -307,11 +308,16 @@
         cursor: pointer;
         transition: all 0.3s ease;
       }
-
       .glass-btn:hover {
         background: rgba(255, 255, 255, 0.25);
         border-color: rgba(255, 255, 255, 0.6);
         transform: scale(1.05);
+      }
+
+      .lastcontainer {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
       }
 
       /* ===== RESPONSIVE ===== */
@@ -338,57 +344,63 @@
       }
 
       @media (max-width: 420px) {
+        /* Gallery covers full viewport */
         .gallery {
           flex-direction: column;
-          height: auto;
+          position: relative;
+          height: auto; /* allow scrolling */
           gap: 0;
+          overflow: visible;
         }
+
+        /* Keep only first strip visible */
+        .gallery__strip__wrapper:nth-child(n + 2) {
+          display: none;
+        }
+
         .gallery__strip__wrapper {
-          flex: 1 1 auto;
-          min-height: 200px;
-          max-height: 200px;
-          overflow: hidden;
-        }
-        .gallery__strip-inner {
-          flex-direction: row;
-          animation: scroll-horizontal 20s linear infinite;
-          width: calc(200%);
-        }
-        .gallery__strip-inner .photo {
-          flex: 0 0 50%;
-        }
-        @keyframes scroll-horizontal {
-          0% {
-            transform: translateX(-25%);
-          }
-          100% {
-            transform: translateX(-75%);
-          }
-        }
-        .photo__image img {
+          position: absolute;
+          top: 0;
+          left: 0;
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          flex: none;
         }
+
+        .gallery__strip-inner {
+          flex-direction: column;
+          height: 100%;
+          animation: scroll-up 60s linear infinite; /* seamless vertical scroll */
+        }
+
+        /* Layer content on top */
         .content-overlay {
-          position: relative;
-          transform: none;
+          position: relative; /* scrolls with page */
           top: auto;
           left: auto;
+          transform: none;
+          width: 90%;
+          max-width: 360px;
+          margin: 20px auto;
           text-align: center;
-          width: 95%;
-          gap: 15px;
+          gap: 12px;
+          z-index: 5;
         }
+
         .cards-grid {
           grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .main-card,
+        .card {
+          padding: 20px;
+        }
+
+        .lastcontainer {
+          flex-direction: column;
           gap: 12px;
         }
-      }
-
-      .lastcontainer {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
       }
     </style>
   </head>
@@ -444,7 +456,7 @@
           </div>
         </div>
 
-        <!-- Strip 2 (Middle) FIXED -->
+        <!-- Strip 2 -->
         <div class="gallery__strip__wrapper">
           <div
             class="gallery__strip-inner strip-down"
@@ -563,7 +575,6 @@
           </div>
 
           <div class="lastcontainer">
-            <!-- GLASS BUTTON -->
             <div class="btn-container">
               <button
                 class="glass-btn"
